@@ -43,9 +43,11 @@ Shader "Shader Graphs/Dissolve" {
 				return output;
 			}
 
+			float4 _AlbedoColor;
+
 			float4 frag(Vertex_Stage_Output input) : SV_TARGET
 			{
-				return float4(1.0, 1.0, 1.0, 1.0); // RGBA
+				return _AlbedoColor;
 			}
 
 			ENDHLSL
