@@ -24,14 +24,8 @@ public class Player : Character
 
         isDragging = true;
 
-        if (currentFloor != null)
-        {
-            oldParent = currentFloor.SetPlayerPos();
-        }
-        else
-        {
-            oldParent = transform.parent.position;
-        }
+        Tower currentTower = TowerController.Instance.SetCurrentTower();
+        currentTower.ShowAllHighlightNormal();
     }
 
     private void OnMouseUp()
@@ -39,14 +33,8 @@ public class Player : Character
         PlayAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
         isDragging = false;
 
-        if (currentFloor != null)
-        {
-            transform.position = currentFloor.SetPlayerPos();
-        }
-        else
-        {
-            transform.position = oldParent;
-        }
+        Tower currentTower = TowerController.Instance.SetCurrentTower();
+        currentTower.HideAllHighlightNormal();
     }
 
     private void OnTriggerEnter(Collider other)

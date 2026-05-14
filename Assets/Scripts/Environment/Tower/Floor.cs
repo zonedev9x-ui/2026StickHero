@@ -20,41 +20,18 @@ public class Floor : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag(ConstantData.TAG_DRAGGABLE))
-        {
-            if (isFloorEmpty == false)
-            {   
-                ShowHighLightSelect();
-            }
-        }
-    }
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag(ConstantData.TAG_DRAGGABLE))
-    //    {
-    //        if (isFloorEmpty == false)
-    //        {
-    //            HideHighLightSelect();
-    //        }
-    //    }
-    //}
-
-    private void ShowHighLight()
+    public void ShowHighLight()
     {
         highlights[0].gameObject.SetActive(true);
     }
 
-    private void HideHighLight()
+    public void HideHighLight()
     {
         highlights[0].gameObject.SetActive(false);
     }
 
-    private void ShowHighLightSelect()
+    public void ShowHighLightSelect()
     {
-        highlights[0].gameObject.SetActive(false);
         highlights[1].gameObject.SetActive(true);
     }
 
