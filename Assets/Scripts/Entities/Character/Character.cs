@@ -31,4 +31,9 @@ public class Character : MonoBehaviour
     }
 
     #endregion
+
+    protected void Attack()
+    {
+
+    }
 }
