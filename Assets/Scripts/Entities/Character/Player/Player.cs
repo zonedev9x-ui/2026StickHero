@@ -24,6 +24,8 @@ public class Player : Character
 
         isDragging = true;
 
+        transform.position = 
+
         Tower currentTower = TowerController.Instance.SetCurrentTower();
         currentTower.ShowAllHighlightNormal();
     }
