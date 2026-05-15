@@ -4,40 +4,79 @@ public enum PlayerState
 {
     Idle,
     Moving,
+    Dragging,
     Attacking,
-    Winning,
-    Dead
+    Finish,
 }
 
 public class Player : Character
 {
     public Floor currentFloor;
-    public PlayerState state;
+    public PlayerState currentState = PlayerState.Idle;
 
+    private Tower currentTower;
     private bool isDragging = false;
     private Vector3 offset;
     private Vector3 oldParent;
+    private Camera mainCamera;
 
     void Start()
     {
         oldParent = transform.parent.position;
+        mainCamera = Camera.main;
     }
 
     void Update()
     {
-        if (isDragging)
+        if (IsIdle() == true)
         {
-            Vector3 mousePos = Input.mousePosition;
+            ChangeState(PlayerState.Idle);
+        }
+        else
+        {
+            switch (currentState)
+            {
+                case PlayerState.Dragging:
 
-            mousePos.z = 3f;
+                    if (isDragging)
+                    {
+                        Vector3 mousePos = Input.mousePosition;
+                        mousePos.z = 3f;
+                        transform.position = mainCamera.ScreenToWorldPoint(mousePos) + offset;
+                    }
 
-            transform.position = Camera.main.ScreenToWorldPoint(mousePos) + offset;
+                    break;
+                case PlayerState.Moving:
+                    break;
+                case PlayerState.Attacking:
+                    break;
+                case PlayerState.Finish:
+                    break;
+            }
         }
     }
 
-    private void Attack()
+    private bool IsIdle()
     {
-        state = PlayerState.Attacking;
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("Armature|idle"))
+        {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ChangeState(PlayerState newState)
+    {
+        currentState = newState;
+    }
+
+    public void Attack()
+    {
+        currentState = PlayerState.Attacking;
 
 
     }
@@ -46,21 +85,19 @@ public class Player : Character
 
     private void OnMouseDown()
     {
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        offset = transform.position - mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         PlayAnim(ConstantData.ANIM_TRIGGER_GRAB);
 
         isDragging = true;
 
-        Tower currentTower = TowerController.Instance.SetCurrentTower();
+        currentTower = TowerController.Instance.SetCurrentTower();
         currentTower.ShowAllHighlightNormal();
     }
 
     private void OnMouseDrag()
     {
         if (!isDragging) return;
-
-        Tower currentTower = TowerController.Instance.SetCurrentTower();
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
@@ -94,8 +131,11 @@ public class Player : Character
 
         currentFloor = null;
 
-        currentTower.ShowAllHighlightNormal();
-        currentTower.HideAllHighlightSelect();
+        if (currentTower != null)
+        {
+            currentTower.ShowAllHighlightNormal();
+            currentTower.HideAllHighlightSelect();
+        }
     }
 
     private void OnMouseUp()
@@ -117,8 +157,10 @@ public class Player : Character
             transform.position = oldParent;
         }
 
-        Tower currentTower = TowerController.Instance.SetCurrentTower();
-        currentTower.HideAllHighlight();
+        if (currentTower != null)
+        {
+            currentTower.HideAllHighlight();
+        }
     }
 
     #endregion
