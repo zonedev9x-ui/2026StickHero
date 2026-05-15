@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ConstantData
 {   
-    public const string LAYER_MASK_PLAYER = "Player";
-    public const string LAYER_MASK_TOWER = "Tower";
+    public LayerMask Player;
+    public LayerMask Floor;
     public const string TAG_FLOOR = "Floor";
     public const string TAG_DRAGGABLE = "Draggable";
 

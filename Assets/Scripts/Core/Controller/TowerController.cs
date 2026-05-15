@@ -12,4 +12,18 @@ public class TowerController : Singleton<TowerController>
     {
         return towers[currentTowerIndex];
     }
+
+    public bool IsFloorInCurrentTower(Floor floor)
+    {
+        for(int i = 0; i < towers[currentTowerIndex].floors.Count; i++)
+        {
+            if (floor == towers[currentTowerIndex].floors[i])
+            {   
+                Debug.Log("Floor is in current tower");
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

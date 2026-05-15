@@ -1,13 +1,17 @@
+using TMPro;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public int strengthScore;
+    public TMP_Text txtStrengthScore;
+
     public Animator animator;
     protected string currentAnim;
 
     void Start()
     {
-        
+        txtStrengthScore.text = strengthScore.ToString();
     }
 
     void Update()
@@ -31,9 +35,4 @@ public class Character : MonoBehaviour
     }
 
     #endregion
-
-    protected void Attack()
-    {
-
-    }
 }

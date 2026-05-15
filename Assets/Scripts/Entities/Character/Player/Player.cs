@@ -1,20 +1,48 @@
-using UnityEngine;
+﻿using UnityEngine;
+
+public enum PlayerState
+{
+    Idle,
+    Moving,
+    Attacking,
+    Winning,
+    Dead
+}
 
 public class Player : Character
 {
     public Floor currentFloor;
+    public PlayerState state;
 
     private bool isDragging = false;
     private Vector3 offset;
     private Vector3 oldParent;
 
+    void Start()
+    {
+        oldParent = transform.parent.position;
+    }
+
     void Update()
     {
         if (isDragging)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            Vector3 mousePos = Input.mousePosition;
+
+            mousePos.z = 3f;
+
+            transform.position = Camera.main.ScreenToWorldPoint(mousePos) + offset;
         }
     }
+
+    private void Attack()
+    {
+        state = PlayerState.Attacking;
+
+
+    }
+
+    #region Drag Player
 
     private void OnMouseDown()
     {
@@ -24,10 +52,50 @@ public class Player : Character
 
         isDragging = true;
 
-        transform.position = 
-
         Tower currentTower = TowerController.Instance.SetCurrentTower();
         currentTower.ShowAllHighlightNormal();
+    }
+
+    private void OnMouseDrag()
+    {
+        if (!isDragging) return;
+
+        Tower currentTower = TowerController.Instance.SetCurrentTower();
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            if (hit.collider.CompareTag(ConstantData.TAG_FLOOR))
+            {
+                Floor floor = hit.collider.GetComponentInParent<Floor>();
+
+                if (floor != null && TowerController.Instance.IsFloorInCurrentTower(floor) == true)
+                {
+                    if (floor != currentFloor)
+                    {
+                        if (currentFloor != null)
+                        {
+                            currentFloor.HideHighLightSelect();
+                            currentFloor.ShowHighLight();
+                        }
+
+                        currentFloor = floor;
+
+                        currentFloor.HideHighLight();
+                        currentFloor.ShowHighLightSelect();
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        currentFloor = null;
+
+        currentTower.ShowAllHighlightNormal();
+        currentTower.HideAllHighlightSelect();
     }
 
     private void OnMouseUp()
@@ -35,37 +103,23 @@ public class Player : Character
         PlayAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
         isDragging = false;
 
-        Tower currentTower = TowerController.Instance.SetCurrentTower();
-        currentTower.HideAllHighlightNormal();
-    }
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 0f;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Player entered floor trigger: ");
+        transform.position = Camera.main.ScreenToWorldPoint(mousePos) + offset;
 
-        if (other.CompareTag(ConstantData.TAG_FLOOR))
-        {   
-            Debug.Log("Player entered floor trigger: " + other.name);
-
-            Floor floor = other.GetComponentInParent<Floor>();
-
-            if (floor != null)
-            {
-                currentFloor = floor;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(ConstantData.TAG_FLOOR))
+        if (currentFloor != null)
         {
-            Floor floor = other.GetComponent<Floor>();
-
-            if (floor != null && floor == currentFloor)
-            {
-                currentFloor = null;
-            }
+            transform.position = currentFloor.SetPlayerPos();
         }
+        else
+        {
+            transform.position = oldParent;
+        }
+
+        Tower currentTower = TowerController.Instance.SetCurrentTower();
+        currentTower.HideAllHighlight();
     }
+
+    #endregion
 }

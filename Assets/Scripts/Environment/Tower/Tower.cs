@@ -18,11 +18,20 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void HideAllHighlightNormal()
+    public void HideAllHighlight()
     {
         for (int i = 0; i < floors.Count; i++)
         {
             floors[i].HideHighLight();
+            floors[i].HideHighLightSelect();
+        }
+    }
+
+    public void HideAllHighlightSelect()
+    {
+        for (int i = 0; i < floors.Count; i++)
+        {
+            floors[i].HideHighLightSelect();
         }
     }
 }
