@@ -30,25 +30,24 @@ public class Player : Character
     {
         if (IsIdle() == true)
         {
-            ChangeState(PlayerState.Idle);
+            currentState = PlayerState.Idle;
         }
         else
         {
             switch (currentState)
             {
                 case PlayerState.Dragging:
-
                     if (isDragging)
                     {
                         Vector3 mousePos = Input.mousePosition;
                         mousePos.z = 3f;
                         transform.position = mainCamera.ScreenToWorldPoint(mousePos) + offset;
                     }
-
                     break;
                 case PlayerState.Moving:
                     break;
                 case PlayerState.Attacking:
+                    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
                     break;
                 case PlayerState.Finish:
                     break;
@@ -62,22 +61,14 @@ public class Player : Character
 
         if (stateInfo.IsName("Armature|idle"))
         {
-
             return true;
         }
 
         return false;
     }
 
-    private void ChangeState(PlayerState newState)
+    public void Attack(Enemy enemy) 
     {
-        currentState = newState;
-    }
-
-    public void Attack()
-    {
-        currentState = PlayerState.Attacking;
-
 
     }
 
@@ -139,9 +130,11 @@ public class Player : Character
     }
 
     private void OnMouseUp()
-    {
-        PlayAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
+    {   
+        if(isDragging == false) return;
+
         isDragging = false;
+        PlayAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
 
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 0f;
