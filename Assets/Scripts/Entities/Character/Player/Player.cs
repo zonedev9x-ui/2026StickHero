@@ -43,7 +43,7 @@ public class Player : Character
                 animator.SetBool(ConstantData.ANIM_BOOL_RUNNING, true);
                 break;
             case PlayerState.Attacking:
-                PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                //PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
                 break;
             case PlayerState.TakeDamage:
                 PlayAnim(ConstantData.ANIM_TRIGGER_DAMAGE);
@@ -73,11 +73,18 @@ public class Player : Character
         {
             if (strengthScore > currentEnemy.strengthScore)
             {
-                int randomAnimAttack = Random.Range(1, 3);
-
-                Debug.Log("Random Attack: " + randomAnimAttack);
-
-                animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
+                if (currentFloor.IsLastEnemy())
+                {
+                    int randomAnimAttackFar = Random.Range(4, 7);
+                    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
+                    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                }
+                else
+                {
+                    int randomAnimAttack = Random.Range(1, 4);
+                    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
+                    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                }
             }
         }
     }

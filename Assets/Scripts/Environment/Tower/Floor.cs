@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -59,9 +60,21 @@ public class Floor : MonoBehaviour
         highlights[1].gameObject.SetActive(false);
     }
 
+    public bool IsLastEnemy()
+    {
+        return currentEnemyIndex == enemies.Count - 1;
+    }
+
     public Vector3 SetPlayerPos()
     {
-        return spawnPos[1].position;
+        if (currentEnemyIndex == enemies.Count - 1)
+        {
+            return spawnPos[1].position;
+        }
+        else
+        {
+            return spawnPos[currentEnemyIndex - 1].position;
+        }
     }
 
     public Enemy GetCurrentEnemy()
