@@ -5,18 +5,37 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
+    public Transform playerTran;
     public List<Transform> spawnPos;
     public List<GameObject> highlights;
 
+    public List<Enemy> enemies;
     private bool isFloorEmpty = false;
     private bool isLock = false;
-    private int currentEnemyIndex = 1;
+    private int currentEnemyIndex;
 
     private void Start()
     {
         for (int i = 0; i < highlights.Count; i++)
         {
             highlights[i].gameObject.SetActive(false);
+        }
+
+        CreateEnemy();
+    }
+
+    private void CreateEnemy()
+    {
+        if (enemies.Count <= 0) return;
+
+        int startIndex = spawnPos.Count - enemies.Count;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            int spawnIndex = startIndex + i;
+            enemies[i].transform.position = spawnPos[spawnIndex].position;
+
+            Debug.Log("Enemy " + i + " spawn tai vi tri: " + spawnIndex);
         }
     }
 
@@ -43,5 +62,19 @@ public class Floor : MonoBehaviour
     public Vector3 SetPlayerPos()
     {
         return spawnPos[1].position;
+    }
+
+    public Enemy GetCurrentEnemy()
+    {
+        if (enemies.Count <= 0 && currentEnemyIndex > enemies.Count - 1) return null;
+
+        if (enemies[currentEnemyIndex].currentState == EnemyState.Dead)
+        {
+            return enemies[currentEnemyIndex++];
+        }
+        else
+        {
+            return enemies[currentEnemyIndex];
+        }
     }
 }

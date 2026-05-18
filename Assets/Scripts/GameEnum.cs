@@ -9,6 +9,11 @@ public enum EnemyType
     Boss,
 }
 
+public enum WeaponType
+{
+    None,
+}
+
 public enum ItemSuportType
 {
     None,

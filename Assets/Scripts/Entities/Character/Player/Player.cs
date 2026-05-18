@@ -1,20 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public enum PlayerState
 {
-    Idle,
+    None,
     Moving,
-    Dragging,
     Attacking,
+    TakeDamage,
     Finish,
 }
 
 public class Player : Character
 {
-    public Floor currentFloor;
-    public PlayerState currentState = PlayerState.Idle;
+    public PlayerState currentState = PlayerState.None;
 
-    private Tower currentTower;
+    public Tower currentTower;
+    public Floor currentFloor;
+    public Enemy currentEnemy;
     private bool isDragging = false;
     private Vector3 offset;
     private Vector3 oldParent;
@@ -28,48 +30,63 @@ public class Player : Character
 
     void Update()
     {
-        if (IsIdle() == true)
+        if (isDragging)
         {
-            currentState = PlayerState.Idle;
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 3f;
+            transform.position = mainCamera.ScreenToWorldPoint(mousePos) + offset;
         }
-        else
+
+        switch (currentState)
+        {   
+            case PlayerState.Moving:
+                animator.SetBool(ConstantData.ANIM_BOOL_RUNNING, true);
+                break;
+            case PlayerState.Attacking:
+                PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                break;
+            case PlayerState.TakeDamage:
+                PlayAnim(ConstantData.ANIM_TRIGGER_DAMAGE);
+                break;
+            case PlayerState.Finish:
+                break;
+        }
+    }
+
+    //private bool IsIdle()
+    //{
+    //    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+    //    if (stateInfo.IsName("Armature|idle"))
+    //    {
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
+
+    public void AttackEnemy()
+    {
+        currentState = PlayerState.Attacking;
+
+        if (currentEnemy.enemyType == EnemyType.Normal)
         {
-            switch (currentState)
+            if (strengthScore > currentEnemy.strengthScore)
             {
-                case PlayerState.Dragging:
-                    if (isDragging)
-                    {
-                        Vector3 mousePos = Input.mousePosition;
-                        mousePos.z = 3f;
-                        transform.position = mainCamera.ScreenToWorldPoint(mousePos) + offset;
-                    }
-                    break;
-                case PlayerState.Moving:
-                    break;
-                case PlayerState.Attacking:
-                    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                    break;
-                case PlayerState.Finish:
-                    break;
+                int randomAnimAttack = Random.Range(1, 3);
+
+                Debug.Log("Random Attack: " + randomAnimAttack);
+
+                animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
             }
         }
     }
 
-    private bool IsIdle()
+    private IEnumerator IAttackEnemy()
     {
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(1f);
 
-        if (stateInfo.IsName("Armature|idle"))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public void Attack(Enemy enemy) 
-    {
-
+        AttackEnemy();
     }
 
     #region Drag Player
@@ -113,6 +130,7 @@ public class Player : Character
 
                         currentFloor.HideHighLight();
                         currentFloor.ShowHighLightSelect();
+                        currentEnemy = currentFloor.GetCurrentEnemy();
                     }
 
                     return;
@@ -121,7 +139,7 @@ public class Player : Character
         }
 
         currentFloor = null;
-
+        currentEnemy = null;
         if (currentTower != null)
         {
             currentTower.ShowAllHighlightNormal();
@@ -130,16 +148,10 @@ public class Player : Character
     }
 
     private void OnMouseUp()
-    {   
-        if(isDragging == false) return;
-
+    {
         isDragging = false;
+
         PlayAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
-
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 0f;
-
-        transform.position = Camera.main.ScreenToWorldPoint(mousePos) + offset;
 
         if (currentFloor != null)
         {
@@ -153,6 +165,11 @@ public class Player : Character
         if (currentTower != null)
         {
             currentTower.HideAllHighlight();
+        }
+
+        if (currentEnemy != null)
+        {
+            StartCoroutine(IAttackEnemy());
         }
     }
 

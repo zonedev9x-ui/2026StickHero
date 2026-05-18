@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        txtStrengthScore.text = strengthScore.ToString();
+        //txtStrengthScore.text = strengthScore.ToString();
     }
 
     void Update()
