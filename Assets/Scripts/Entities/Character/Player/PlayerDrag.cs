@@ -6,7 +6,7 @@ public class PlayerDrag : MonoBehaviour
     private Camera mainCamera;
     private Vector3 offset;
     private Vector3 oldParent;
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     private Tower currentTower;
     private Floor currentFloor;

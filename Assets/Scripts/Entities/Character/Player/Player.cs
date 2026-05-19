@@ -8,6 +8,7 @@ public class Player : Character
     protected override void Start()
     {
         base.Start();
+        EnablePhysics(false);
     }
 
     private void Update()
@@ -27,6 +28,21 @@ public class Player : Character
     public void TriggerAnim(string anim)
     {
         PlayAnim(anim);
+    }
+
+    public void EnablePhysicsAndColliders(bool isEnabled)
+    {
+        Collider col = GetComponentInChildren<Collider>();
+        Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rb in bodies)
+        {
+            rb.isKinematic = !isEnabled;
+        }
+        if (col != null)
+        {
+            col.enabled = !isEnabled;
+        }
     }
 
     public void SetCombatTarget(Enemy enemy, Floor floor)

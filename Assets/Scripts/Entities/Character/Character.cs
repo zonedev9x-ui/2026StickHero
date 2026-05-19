@@ -40,19 +40,19 @@ public class Character : MonoBehaviour
         EnablePhysics(isEnabled);
     }
 
-    protected virtual void EnablePhysics(bool isEnabled)
+    public virtual void EnablePhysics(bool isEnabled)
     {
-        Collider col = GetComponentInChildren<Collider>();
+        //Collider col = GetComponentInChildren<Collider>();
         Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
 
         foreach (Rigidbody rb in bodies)
         {
             rb.isKinematic = !isEnabled;
         }
-        if (col != null)
-        {
-            col.enabled = isEnabled;
-        }
+        //if (col != null)
+        //{
+        //    col.enabled = isEnabled;
+        //}
     }
 
     #endregion
