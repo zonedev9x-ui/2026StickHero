@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    public Transform playerTran;
     public List<Transform> spawnPos;
     public List<GameObject> highlights;
 
@@ -65,9 +64,14 @@ public class Floor : MonoBehaviour
         return currentEnemyIndex == enemies.Count - 1;
     }
 
-    public Vector3 SetPlayerPos()
+    public Transform GetTransformChild()
     {
-        if (currentEnemyIndex == enemies.Count - 1)
+        return spawnPos[currentEnemyIndex];
+    }
+
+    public Vector3 SetPlayerPos()
+    {   
+        if (currentEnemyIndex == enemies.Count - 1 || enemies.Count <= 0)
         {
             return spawnPos[1].position;
         }
@@ -81,7 +85,7 @@ public class Floor : MonoBehaviour
     {
         if (enemies.Count <= 0 && currentEnemyIndex > enemies.Count - 1) return null;
 
-        if (enemies[currentEnemyIndex].currentState == EnemyState.Dead)
+        if (enemies[currentEnemyIndex].currentState == CharacterState.Dead)
         {
             return enemies[currentEnemyIndex++];
         }

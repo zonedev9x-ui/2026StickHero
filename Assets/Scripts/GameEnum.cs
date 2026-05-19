@@ -1,6 +1,12 @@
 using UnityEngine;
 
-
+public enum CharacterState
+{
+    Idle,
+    Moving,
+    Attack,
+    Dead
+}
 
 public enum EnemyType
 {

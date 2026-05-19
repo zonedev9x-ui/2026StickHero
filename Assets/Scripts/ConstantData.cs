@@ -23,7 +23,8 @@ public class ConstantData
     public const float ANIM_ATTACK_SPIN_KICK_UP = 3;
 
     public const string ANIM_TRIGGER_DAMAGE = "isDamage";
-    public const float ANIM_DAMAGE_DOWM = 1;
-    public const float ANIM_DAMAGE_UP = 2;
-    public const float ANIM_DAMAGE_STRAIGHT = 3;
+    public const string ANIM_BLEND_DAMAGE = "damageIndex";
+    public const float ANIM_DAMAGE_DOWM = 2;
+    public const float ANIM_DAMAGE_UP = 3;
+    public const float ANIM_DAMAGE_STRAIGHT = 1;
 }
