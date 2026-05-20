@@ -8,9 +8,11 @@ public class Floor : MonoBehaviour
 {
     public List<Transform> spawnPos;
     public List<GameObject> highlights;
+    public List<GameObject> walls;
+    public List<GameObject> breakWalls;
 
     public List<Enemy> enemies;
-    private bool isFloorEmpty = false;
+    public bool isFloorEmpty = false;
     private bool isLock = false;
     private int currentEnemyIndex;
 
@@ -92,6 +94,19 @@ public class Floor : MonoBehaviour
         else
         {
             return enemies[currentEnemyIndex];
+        }
+    }
+
+    public void BreakWalls()
+    {
+        for(int i = 0; i < walls.Count; i++)
+        {
+            walls[i].SetActive(false);
+        }
+
+        for (int i = 0; i < breakWalls.Count; i++)
+        {
+            breakWalls[i].SetActive(true);
         }
     }
 }

@@ -5,6 +5,7 @@ public enum CharacterState
     Idle,
     Moving,
     Attack,
+    ChangeSize,
     Dead
 }
 

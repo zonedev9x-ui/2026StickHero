@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class PlayerDrag : MonoBehaviour
 {
-    private Player player;
+    private Character player;
     private Camera mainCamera;
     private Vector3 offset;
     private Vector3 oldParent;
     public bool isDragging = false;
 
-    private Tower currentTower;
-    private Floor currentFloor;
     private Enemy currentEnemy;
 
     void Start()
@@ -34,16 +32,16 @@ public class PlayerDrag : MonoBehaviour
         if (player.currentState != CharacterState.Idle ) return;
 
         offset = transform.position - mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        player.TriggerAnim(ConstantData.ANIM_TRIGGER_GRAB);
+        player.PlayAnim(ConstantData.ANIM_TRIGGER_GRAB);
         isDragging = true;
 
         oldParent = transform.parent.position;
 
-        currentTower = TowerController.Instance.SetCurrentTower();
+        player.currentTower = TowerController.Instance.SetCurrentTower();
 
-        if (currentTower != null)
+        if (player.currentTower != null)
         {
-            currentTower.ShowAllHighlightNormal();
+            player.currentTower.ShowAllHighlightNormal();
         }
     }
 
@@ -64,24 +62,24 @@ public class PlayerDrag : MonoBehaviour
                 {
                     if (TowerController.Instance.IsFloorInCurrentTower(floor) == true)
                     {
-                        if (floor != currentFloor)
+                        if (floor != player.currentFloor)
                         {
-                            if (currentFloor != null)
+                            if (player.currentFloor != null)
                             {
-                                currentFloor.HideHighLightSelect();
-                                currentFloor.ShowHighLight();
+                                player.currentFloor.HideHighLightSelect();
+                                player.currentFloor.ShowHighLight();
                             }
 
-                            currentFloor = floor;
+                            player.currentFloor = floor;
 
-                            currentFloor.HideHighLight();
-                            currentFloor.ShowHighLightSelect();
-                            currentEnemy = currentFloor.GetCurrentEnemy();
+                            player.currentFloor.HideHighLight();
+                            player.currentFloor.ShowHighLightSelect();
+                            currentEnemy = player.currentFloor.GetCurrentEnemy();
                         }
                     }
                     else 
                     {
-                        currentFloor = floor;
+                        player.currentFloor = floor;
                     }
 
                     return;
@@ -89,12 +87,12 @@ public class PlayerDrag : MonoBehaviour
             }
         }
 
-        currentFloor = null;
+        player.currentFloor = null;
         currentEnemy = null;
-        if (currentTower != null)
+        if (player.currentTower != null)
         {
-            currentTower.ShowAllHighlightNormal();
-            currentTower.HideAllHighlightSelect();
+            player.currentTower.ShowAllHighlightNormal();
+            player.currentTower.HideAllHighlightSelect();
         }
     }
 
@@ -104,26 +102,26 @@ public class PlayerDrag : MonoBehaviour
 
         isDragging = false;
 
-        player.TriggerAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
+        player.PlayAnim(ConstantData.ANIM_TRIGGER_GRAB_RELEASE);
 
-        if (currentFloor != null)
+        if (player.currentFloor != null)
         {
-            transform.position = currentFloor.SetPlayerPos();
-            transform.SetParent(currentFloor.GetTransformChild());
+            transform.position = player.currentFloor.SetPlayerPos();
+            transform.SetParent(player.currentFloor.GetTransformChild());
         }
         else
         {
             transform.position = oldParent;
         }
 
-        if (currentTower != null)
+        if (player.currentTower != null)
         {
-            currentTower.HideAllHighlight();
+            player.currentTower.HideAllHighlight();
         }
 
         if (currentEnemy != null)
         {
-            player.SetCombatTarget(currentEnemy, currentFloor);
+            player.SetCombatTarget(currentEnemy, player.currentFloor);
         }
     }
 }

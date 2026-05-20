@@ -8,6 +8,9 @@ public class Character : MonoBehaviour
     public TMP_Text txtStrengthScore;
     public Animator animator;
 
+    public Tower currentTower;
+    public Floor currentFloor;
+
     protected Character currentTarget;
     protected string currentAnim;
 
@@ -23,7 +26,7 @@ public class Character : MonoBehaviour
 
     #region Anim and Physics
     
-    protected virtual void PlayAnim(string anim)
+    public virtual void PlayAnim(string anim)
     {
         if (animator == null) return;
         
@@ -60,6 +63,11 @@ public class Character : MonoBehaviour
     public Character GetTarget()
     {
         return currentTarget;
+    }
+
+    public virtual void SetCombatTarget(Character enemy, Floor floor)
+    {
+        
     }
 
     public virtual void TakeHit(int direction)

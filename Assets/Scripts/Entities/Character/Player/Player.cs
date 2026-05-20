@@ -3,7 +3,13 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public Floor currentFloor;
+    public float duration = 2f;
+
+    private Vector3 startScale = Vector3.one;
+    private Vector3 targetScale = Vector3.one * 6f;
+
+    private float timer;
+
 
     protected override void Start()
     {
@@ -13,15 +19,36 @@ public class Player : Character
 
     private void Update()
     {
-        switch (currentState)
+        UpdateIdle();
+        UpdateChangeSize();
+    }
+
+    private void UpdateIdle()
+    {
+        if (currentState == CharacterState.Idle)
         {
-            case CharacterState.Moving:
-                animator.SetBool(ConstantData.ANIM_BOOL_RUNNING, true);
-                break;
-            case CharacterState.Attack:
-                break;
-            case CharacterState.Dead:
-                break;
+            Tower currentTower = TowerController.Instance.SetCurrentTower();
+            if (currentTower != null && currentTower.IsAllFloorEmpty() == true)
+            {
+                currentState = CharacterState.ChangeSize;
+                PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
+                return;
+            }
+        }
+    }
+
+    private void UpdateChangeSize()
+    {
+        if(currentState == CharacterState.ChangeSize)
+        {
+            //timer += Time.deltaTime;
+            //float t = timer / duration;
+            //transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+            
+            //if(t >= duration)
+            //{
+
+            //}
         }
     }
 
@@ -45,12 +72,20 @@ public class Player : Character
         }
     }
 
-    public void SetCombatTarget(Enemy enemy, Floor floor)
+    public override void SetCombatTarget(Character enemy, Floor floor)
     {
         currentState = CharacterState.Attack;
         currentTarget = enemy;
         currentFloor = floor;
+
         StartCoroutine(IAttackEnemy());
+    }
+
+    private IEnumerator IAttackEnemy()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        AttackEnemy();
     }
 
     public void AttackEnemy()
@@ -79,12 +114,5 @@ public class Player : Character
                 enemy.Attack(this);
             }
         }
-    }
-
-    private IEnumerator IAttackEnemy()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        AttackEnemy();
     }
 }

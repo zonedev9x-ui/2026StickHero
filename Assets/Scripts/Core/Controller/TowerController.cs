@@ -26,4 +26,16 @@ public class TowerController : Singleton<TowerController>
 
         return false;
     }
+
+    public bool IsLastTowerEmpty()
+    {
+        if (currentTowerIndex == towers.Count - 1)
+        {
+            if (towers[currentTowerIndex].IsAllFloorEmpty())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

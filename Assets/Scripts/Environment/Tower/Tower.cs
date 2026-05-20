@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public GameObject TopWall;
+    public List<GameObject> breakTopWalls;
     public List<Floor> floors;
- 
+
     private void OnEnable()
     {
-        
+
     }
 
     public void ShowAllHighlightNormal()
@@ -32,6 +34,33 @@ public class Tower : MonoBehaviour
         for (int i = 0; i < floors.Count; i++)
         {
             floors[i].HideHighLightSelect();
+        }
+    }
+
+    public bool IsAllFloorEmpty()
+    {
+        for (int i = 0; i < floors.Count; i++)
+        {
+            if (floors[i].isFloorEmpty == true)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void BreakWalls()
+    {
+        TopWall.SetActive(false);
+
+        for (int i = 0; i < breakTopWalls.Count; i++)
+        {
+            breakTopWalls[i].SetActive(true);
+        }
+
+        for (int i = 0; i < floors.Count; i++)
+        {
+            floors[i].BreakWalls();
         }
     }
 }
