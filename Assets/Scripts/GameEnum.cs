@@ -27,8 +27,9 @@ public enum SlotType
 public enum WeaponType
 {
     None,
-    Melee_Weapon,
-    Ranged_Weapon
+    Sword,
+    Hammer_Axe,
+    Dagger,
 }
 
 public enum ItemSuportType

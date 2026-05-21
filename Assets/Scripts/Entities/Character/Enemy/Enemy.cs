@@ -12,6 +12,8 @@ public class Enemy : Character
 {
     public EnemyType enemyType = EnemyType.None;
 
+    public bool isAnimAttackSingle = false;
+
     protected override void Start()
     {
         base.Start();
@@ -28,7 +30,14 @@ public class Enemy : Character
         currentState = CharacterState.Attack;
         currentTarget = target;
 
-        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, 0);
-        PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+        if(isAnimAttackSingle == true)
+        {
+            animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, 0);
+            PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+        }
+        else
+        {
+            ChangeAnimAttack(weaponType);
+        }
     }
 }

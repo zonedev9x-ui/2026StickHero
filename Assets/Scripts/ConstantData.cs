@@ -18,9 +18,15 @@ public class ConstantData
 
     public const string ANIM_TRIGGER_ATTACK = "isAttack";
     public const string ANIM_BLEND_ATTACK = "attackIndex";
-    public const float ANIM_ATTACK_HIT_STRAIGHT = 1;
-    public const float ANIM_ATTACK_KICK_UP = 2;
-    public const float ANIM_ATTACK_SPIN_KICK_UP = 3;
+    public const int ANIM_ATTACK_EMPTY_MIN = 0;
+    public const int ANIM_ATTACK_EMPTY_MAX = 3;
+    public const int ANIM_ATTACK_SWORD_MIN = 3;
+    public const int ANIM_ATTACK_SWORD_MAX = 6;
+    public const int ANIM_ATTACK_HAMMER_AXE_MIN = 6;
+    public const int ANIM_ATTACK_HAMMER_AXE_MAX = 9;
+    public const int ANIM_ATTACK_DAGGER_MIN = 9;
+    public const int ANIM_ATTACK_DAGGER_MAX = 12;
+
 
     public const string ANIM_TRIGGER_DAMAGE = "isDamage";
     public const string ANIM_BLEND_DAMAGE = "damageIndex";
