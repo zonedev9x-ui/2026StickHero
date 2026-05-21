@@ -23,14 +23,12 @@ public class Enemy : Character
 
     }
 
-    public void Attack(Character character)
+    public void Attack(Character target)
     {
         currentState = CharacterState.Attack;
+        currentTarget = target;
 
-        currentTarget = character;
-
-        int randomAnimAttackFar = Random.Range(1, 4);
-        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
+        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, 0);
         PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
     }
 }

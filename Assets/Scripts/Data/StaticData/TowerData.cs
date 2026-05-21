@@ -1,16 +1,7 @@
-using UnityEngine;
+using System.Collections.Generic;
 
-public class TowerData : MonoBehaviour
+[System.Serializable]
+public class TowerData
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<FloorData> floorDatas;
 }

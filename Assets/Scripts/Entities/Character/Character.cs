@@ -5,13 +5,12 @@ public class Character : MonoBehaviour
 {   
     public CharacterState currentState = CharacterState.Idle;
     public int strengthScore;
-    public TMP_Text txtStrengthScore;
     public Animator animator;
 
     public Tower currentTower;
     public Floor currentFloor;
 
-    protected Character currentTarget;
+    public Character currentTarget;
     protected string currentAnim;
 
     protected virtual void Start()

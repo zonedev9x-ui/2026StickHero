@@ -16,9 +16,19 @@ public enum EnemyType
     Boss,
 }
 
+public enum SlotType
+{
+    None,
+    Enemy,
+    Weapon,
+    Obstacle
+}
+
 public enum WeaponType
 {
     None,
+    Melee_Weapon,
+    Ranged_Weapon
 }
 
 public enum ItemSuportType

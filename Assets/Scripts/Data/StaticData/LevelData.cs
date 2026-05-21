@@ -1,16 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelData : MonoBehaviour
+[CreateAssetMenu(fileName = "LevelData", menuName = "Scriptable Objects/LevelData")]
+public class LevelData : ScriptableObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int levelIndex;
+    public List<TowerData> towerDatas;
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public GameObject TopWall;
-    public List<GameObject> breakTopWalls;
+    public List<BreakWall> breakTopWalls;
     public List<Floor> floors;
 
     private void OnEnable()
@@ -55,7 +55,7 @@ public class Tower : MonoBehaviour
 
         for (int i = 0; i < breakTopWalls.Count; i++)
         {
-            breakTopWalls[i].SetActive(true);
+            breakTopWalls[i].gameObject.SetActive(true);
         }
 
         for (int i = 0; i < floors.Count; i++)

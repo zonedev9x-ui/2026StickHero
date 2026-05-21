@@ -9,7 +9,7 @@ public class Floor : MonoBehaviour
     public List<Transform> spawnPos;
     public List<GameObject> highlights;
     public List<GameObject> walls;
-    public List<GameObject> breakWalls;
+    public List<BreakWall> breakWalls;
 
     public List<Enemy> enemies;
     public bool isFloorEmpty = false;
@@ -106,7 +106,7 @@ public class Floor : MonoBehaviour
 
         for (int i = 0; i < breakWalls.Count; i++)
         {
-            breakWalls[i].SetActive(true);
+            breakWalls[i].gameObject.SetActive(true);
         }
     }
 }
