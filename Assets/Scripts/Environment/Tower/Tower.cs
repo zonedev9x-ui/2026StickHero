@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public GameObject TopWall;
-    public List<BreakWall> breakTopWalls;
+    public Summit summit;
     public List<Floor> floors;
 
-    private void OnEnable()
+    public void Init(List<Floor> floorList)
     {
-
+        floors = floorList;
     }
 
     public void ShowAllHighlightNormal()
@@ -51,12 +50,7 @@ public class Tower : MonoBehaviour
 
     public void BreakWalls()
     {
-        TopWall.SetActive(false);
-
-        for (int i = 0; i < breakTopWalls.Count; i++)
-        {
-            breakTopWalls[i].gameObject.SetActive(true);
-        }
+        summit.BreakWalls();
 
         for (int i = 0; i < floors.Count; i++)
         {

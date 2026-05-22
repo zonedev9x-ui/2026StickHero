@@ -37,7 +37,7 @@ public class PlayerDrag : MonoBehaviour
 
         oldParent = transform.parent.position;
 
-        player.currentTower = TowerController.Instance.SetCurrentTower();
+        player.currentTower = LevelController.Instance.SetCurrentTower();
 
         if (player.currentTower != null)
         {
@@ -60,7 +60,7 @@ public class PlayerDrag : MonoBehaviour
 
                 if (floor != null)
                 {
-                    if (TowerController.Instance.IsFloorInCurrentTower(floor) == true)
+                    if (LevelController.Instance.IsFloorInCurrentTower(floor) == true)
                     {
                         if (floor != player.currentFloor)
                         {
@@ -74,7 +74,7 @@ public class PlayerDrag : MonoBehaviour
 
                             player.currentFloor.HideHighLight();
                             player.currentFloor.ShowHighLightSelect();
-                            currentEnemy = player.currentFloor.GetCurrentEnemy();
+                            //currentEnemy = player.currentFloor.GetCurrentEnemy();
                         }
                     }
                     else 
@@ -106,8 +106,8 @@ public class PlayerDrag : MonoBehaviour
 
         if (player.currentFloor != null)
         {
-            transform.position = player.currentFloor.SetPlayerPos();
-            transform.SetParent(player.currentFloor.GetTransformChild());
+            //transform.position = player.currentFloor.SetPlayerPos();
+            //transform.SetParent(player.currentFloor.GetTransformChild());
         }
         else
         {

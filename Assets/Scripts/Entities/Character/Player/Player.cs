@@ -3,14 +3,6 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public float duration = 2f;
-
-    private Vector3 startScale = Vector3.one;
-    private Vector3 targetScale = Vector3.one * 6f;
-
-    private float timer;
-
-
     protected override void Start()
     {
         base.Start();
@@ -27,7 +19,7 @@ public class Player : Character
     {
         if (currentState == CharacterState.Idle)
         {
-            Tower currentTower = TowerController.Instance.SetCurrentTower();
+            Tower currentTower = LevelController.Instance.SetCurrentTower();
             if (currentTower != null && currentTower.IsAllFloorEmpty() == true)
             {
                 currentState = CharacterState.ChangeSize;
@@ -96,18 +88,18 @@ public class Player : Character
         {
             if (strengthScore > enemy.strengthScore)
             {
-                if (currentFloor.IsLastEnemy())
-                {
-                    int randomAnimAttackFar = Random.Range(4, 7);
-                    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
-                    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                }
-                else
-                {
-                    int randomAnimAttack = Random.Range(1, 4);
-                    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
-                    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                }
+                //if (currentFloor.IsLastEnemy())
+                //{
+                //    int randomAnimAttackFar = Random.Range(4, 7);
+                //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
+                //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                //}
+                //else
+                //{
+                //    int randomAnimAttack = Random.Range(1, 4);
+                //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
+                //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                //}
             }
             else
             {

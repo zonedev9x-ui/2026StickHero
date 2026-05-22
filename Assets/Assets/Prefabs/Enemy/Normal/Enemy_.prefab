@@ -2124,7 +2124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3473887923840805762
 Transform:
   m_ObjectHideFlags: 0
@@ -4487,12 +4487,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   currentState: 0
+  weaponType: 0
   strengthScore: 0
   animator: {fileID: 6515563475078624278}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
   currentTarget: {fileID: 0}
   enemyType: 1
+  isAnimAttackSingle: 0
 --- !u!1 &7076662545692799633
 GameObject:
   m_ObjectHideFlags: 0

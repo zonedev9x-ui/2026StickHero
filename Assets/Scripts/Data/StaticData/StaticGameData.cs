@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class StaticGameData : MonoBehaviour
+public class StaticGameData
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public StaticLevelData staticLevelData;
 
-    // Update is called once per frame
-    void Update()
+    public StaticGameData()
     {
-        
+        if (staticLevelData == null) staticLevelData = new StaticLevelData();
     }
 }

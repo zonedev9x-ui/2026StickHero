@@ -11,10 +11,10 @@ public class Floor : MonoBehaviour
     public List<GameObject> walls;
     public List<BreakWall> breakWalls;
 
-    public List<Enemy> enemies;
+    public List<GameObject> objs;
     public bool isFloorEmpty = false;
     private bool isLock = false;
-    private int currentEnemyIndex;
+    private int currentObjIndex;
 
     private void Start()
     {
@@ -22,24 +22,33 @@ public class Floor : MonoBehaviour
         {
             highlights[i].gameObject.SetActive(false);
         }
-
-        CreateEnemy();
     }
 
-    private void CreateEnemy()
+    public void Init(List<SlotData> slotDatas)
     {
-        if (enemies.Count <= 0) return;
-
-        int startIndex = spawnPos.Count - enemies.Count;
-
-        for (int i = 0; i < enemies.Count; i++)
+        for(int i = 0; i < slotDatas.Count; i++)
         {
-            int spawnIndex = startIndex + i;
-            enemies[i].transform.position = spawnPos[spawnIndex].position;
-
-            Debug.Log("Enemy " + i + " spawn tai vi tri: " + spawnIndex);
+            //if ()
+            //{
+                
+            //}
         }
     }
+
+    //private void CreateEnemy()
+    //{
+    //    if (enemies.Count <= 0) return;
+
+    //    int startIndex = spawnPos.Count - enemies.Count;
+
+    //    for (int i = 0; i < enemies.Count; i++)
+    //    {
+    //        int spawnIndex = startIndex + i;
+    //        enemies[i].transform.position = spawnPos[spawnIndex].position;
+
+    //        Debug.Log("Enemy " + i + " spawn tai vi tri: " + spawnIndex);
+    //    }
+    //}
 
     public void ShowHighLight()
     {
@@ -61,45 +70,45 @@ public class Floor : MonoBehaviour
         highlights[1].gameObject.SetActive(false);
     }
 
-    public bool IsLastEnemy()
-    {
-        return currentEnemyIndex == enemies.Count - 1;
-    }
+    //public bool IsLastEnemy()
+    //{
+    //    return currentObjIndex == objs.Count - 1;
+    //}
 
-    public Transform GetTransformChild()
-    {
-        return spawnPos[currentEnemyIndex];
-    }
+    //public Transform GetTransformChild()
+    //{
+    //    return spawnPos[currentObjIndex];
+    //}
 
     public Vector3 SetPlayerPos()
-    {   
-        if (currentEnemyIndex == enemies.Count - 1 || enemies.Count <= 0)
+    {
+        if (currentObjIndex == objs.Count - 1 || objs.Count <= 0)
         {
             return spawnPos[1].position;
         }
         else
         {
-            return spawnPos[currentEnemyIndex - 1].position;
+            return spawnPos[currentObjIndex - 1].position;
         }
     }
 
-    public Enemy GetCurrentEnemy()
-    {
-        if (enemies.Count <= 0 && currentEnemyIndex > enemies.Count - 1) return null;
+    //public Enemy GetCurrentEnemy()
+    //{
+    //    if (enemies.Count <= 0 && currentEnemyIndex > enemies.Count - 1) return null;
 
-        if (enemies[currentEnemyIndex].currentState == CharacterState.Dead)
-        {
-            return enemies[currentEnemyIndex++];
-        }
-        else
-        {
-            return enemies[currentEnemyIndex];
-        }
-    }
+    //    if (enemies[currentEnemyIndex].currentState == CharacterState.Dead)
+    //    {
+    //        return enemies[currentEnemyIndex++];
+    //    }
+    //    else
+    //    {
+    //        return enemies[currentEnemyIndex];
+    //    }
+    //}
 
     public void BreakWalls()
     {
-        for(int i = 0; i < walls.Count; i++)
+        for (int i = 0; i < walls.Count; i++)
         {
             walls[i].SetActive(false);
         }
