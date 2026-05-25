@@ -24,17 +24,6 @@ public class Floor : MonoBehaviour
         }
     }
 
-    public void Init(List<SlotData> slotDatas)
-    {
-        for(int i = 0; i < slotDatas.Count; i++)
-        {
-            //if ()
-            //{
-                
-            //}
-        }
-    }
-
     //private void CreateEnemy()
     //{
     //    if (enemies.Count <= 0) return;

@@ -3,5 +3,5 @@ using System.Collections.Generic;
 [System.Serializable]
 public class FloorData
 {
-    public List<SlotData> slotDataList;
+    public List<SlotData> slotDatas;
 }

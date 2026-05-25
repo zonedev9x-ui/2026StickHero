@@ -3,13 +3,10 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public float floorSpacingY = 3f;
+
     public Summit summit;
     public List<Floor> floors;
-
-    public void Init(List<Floor> floorList)
-    {
-        floors = floorList;
-    }
 
     public void ShowAllHighlightNormal()
     {

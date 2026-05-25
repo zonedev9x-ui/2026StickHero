@@ -7,7 +7,7 @@ public class LevelController : Singleton<LevelController>
     public Tower towerPrefab;
     public Floor floorPrefab;
     public Player playerPrefab;
-    public List<Enemy> enemies;
+    public List<Enemy> enemyPrefabs;
 
     public Transform tranStart;
     public float towerSpacingX = 3f;
@@ -32,40 +32,62 @@ public class LevelController : Singleton<LevelController>
         LevelData levelData = GameData.staticGameData.staticLevelData.GetLevelDataIndex(levelIndex);
 
         Tower playerTower = Instantiate(towerPrefab, tranStart.position, Quaternion.identity);
-        List<Floor> playerFloorList = new List<Floor>();
-        
         Floor playerFloor = Instantiate(floorPrefab, playerTower.transform.position, Quaternion.identity, playerTower.transform);
-        playerFloorList.Add(playerFloor);
-        playerTower.Init(playerFloorList);
+        playerTower.floors.Add(playerFloor);
+
+        if (playerTower.summit != null)
+        {
+            playerTower.summit.gameObject.SetActive(true);
+            playerTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY, 0f);
+        }
+
         towers.Add(playerTower);
 
         Player player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
 
-        for (int i = 0; i < levelData.towerDatas.Count; i++)
+        for (int towerIndex = 0; towerIndex < levelData.towerDatas.Count; towerIndex++)
         {
-            Vector3 spawnPos = tranStart.position + new Vector3(towerSpacingX * (i + 1), 0f, 0f);
+            Vector3 spawnPos = tranStart.position + new Vector3(towerSpacingX * (towerIndex + 1), 0f, 0f);
             Tower newTower = Instantiate(towerPrefab, spawnPos, Quaternion.identity);
- 
+
             if (newTower.summit != null)
             {
                 newTower.summit.gameObject.SetActive(true);
-                newTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY * levelData.towerDatas[i].floorDatas.Count, 0f);
+                newTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY * levelData.towerDatas[towerIndex].floorDatas.Count, 0f);
             }
 
-            List<Floor> currentTowerFloors = new List<Floor>();
+            List<FloorData> floorDatas = levelData.towerDatas[towerIndex].floorDatas;
 
-            int floorCount = levelData.towerDatas[i].floorDatas.Count;
-            for (int j = 0; j < floorCount; j++)
+            for (int floorIndex = 0; floorIndex < floorDatas.Count; floorIndex++)
             {
-                float heightY = floorSpacingY * (floorCount - 1 - j);
+                float heightY = floorSpacingY * (floorDatas.Count - 1 - floorIndex);
                 Vector3 floorSpawnPos = newTower.transform.position + new Vector3(0f, heightY, 0f);
-                
-                Floor newFloor = Instantiate(floorPrefab, floorSpawnPos, Quaternion.identity, newTower.transform);
-                newFloor.Init(levelData.towerDatas[i].floorDatas[j].slotDataList);              
-                currentTowerFloors.Add(newFloor);
-            }
 
-            newTower.Init(currentTowerFloors);
+                Floor newFloor = Instantiate(floorPrefab, floorSpawnPos, Quaternion.identity, newTower.transform);
+
+                List<SlotData> slotDatas = floorDatas[floorIndex].slotDatas;
+
+                for(int slotIndex = 0; slotIndex < slotDatas.Count; slotIndex++)
+                {
+                    if (slotDatas[slotIndex].enemyName != EnemyName.None)
+                    {
+                        for(int enemyIndex = 0; enemyIndex < enemyPrefabs.Count; enemyIndex++)
+                        {
+                            if (enemyPrefabs[enemyIndex].enemyName == slotDatas[slotIndex].enemyName)
+                            {
+                                Transform spawnPoint = newFloor.spawnPos[slotIndex];
+
+                                Enemy newEnemy = Instantiate(enemyPrefabs[enemyIndex], spawnPoint.position, spawnPoint.rotation, newFloor.transform);
+                            }
+                        }
+                    }
+                }
+
+                newTower.floors.Add(newFloor);
+
+
+            }
+         
             towers.Add(newTower);
         }
     }

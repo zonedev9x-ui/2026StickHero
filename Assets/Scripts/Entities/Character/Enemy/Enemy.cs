@@ -11,7 +11,7 @@ public enum EnemyState
 public class Enemy : Character
 {
     public EnemyType enemyType = EnemyType.None;
-
+    public EnemyName enemyName = EnemyName.None;    
     public bool isAnimAttackSingle = false;
 
     protected override void Start()
