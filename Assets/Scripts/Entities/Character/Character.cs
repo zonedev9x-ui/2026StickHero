@@ -90,20 +90,45 @@ public class Character : MonoBehaviour
         int randomAnimAttack;
 
         switch (weaponType)
-        {   
+        {
             case WeaponType.None:
                 randomAnimAttack = Random.Range(ConstantData.ANIM_ATTACK_EMPTY_MIN, ConstantData.ANIM_ATTACK_EMPTY_MAX);
                 animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
                 break;
-            case WeaponType.Sword:
+            case WeaponType.Sword01:
+            case WeaponType.Sword02:
+            case WeaponType.Sword03:
+            case WeaponType.Sword04:
+            case WeaponType.Sword05:
+            case WeaponType.Sword06:
+            case WeaponType.Sword07:
+            case WeaponType.Sword08:
+            case WeaponType.Sword09:
+            case WeaponType.Sword10:
+            case WeaponType.Sword11:
+            case WeaponType.Sword12:
                 randomAnimAttack = Random.Range(ConstantData.ANIM_ATTACK_SWORD_MIN, ConstantData.ANIM_ATTACK_SWORD_MAX);
                 animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
                 break;
-            case WeaponType.Hammer_Axe:
+            case WeaponType.Hammer01:
+            case WeaponType.Hammer02:
+            case WeaponType.Hammer03:
+            case WeaponType.Hammer04:
+            case WeaponType.Hammer05:
+            case WeaponType.Hammer06:
+            case WeaponType.ScrewHammer:
+            case WeaponType.Axe01:
+            case WeaponType.Axe02:
+            case WeaponType.Axe03:
+            case WeaponType.Axe05:
                 randomAnimAttack = Random.Range(ConstantData.ANIM_ATTACK_HAMMER_AXE_MIN, ConstantData.ANIM_ATTACK_HAMMER_AXE_MAX);
                 animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
                 break;
-            case WeaponType.Dagger:
+            case WeaponType.Dagger01:
+            case WeaponType.Dagger02:
+            case WeaponType.Dagger03:
+            case WeaponType.Dagger04:
+            case WeaponType.Dagger05:
                 randomAnimAttack = Random.Range(ConstantData.ANIM_ATTACK_DAGGER_MIN, ConstantData.ANIM_ATTACK_DAGGER_MAX);
                 animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
                 break;

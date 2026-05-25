@@ -5,6 +5,6 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     public int levelIndex;
-    public EnemyData enemyBossData;
+    public EnemyName bossEnemyName;
     public List<TowerData> towerDatas;
 }

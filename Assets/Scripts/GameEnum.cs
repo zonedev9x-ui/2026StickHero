@@ -17,7 +17,7 @@ public enum EnemyType
 }
 
 public enum EnemyName
-{   
+{
     None,
     Enemy_Stick_man,
     Enemy_Sword_man,
@@ -66,17 +66,64 @@ public enum EnemyName
 public enum WeaponType
 {
     None,
-    Sword,
-    Hammer_Axe,
-    Dagger,
+    Sword01,
+    Sword02,
+    Sword03,
+    Sword04,
+    Sword05,
+    Sword06,
+    Sword07,
+    Sword08,
+    Sword09,
+    Sword10,
+    Sword11,
+    Sword12,
+    Hammer01,
+    Hammer02,
+    Hammer03,
+    Hammer04,
+    Hammer05,
+    Hammer06,
+    ScrewHammer,
+    Axe01,
+    Axe02,
+    Axe03,
+    Axe05,
+    Dagger01,
+    Dagger02,
+    Dagger03,
+    Dagger04,
+    Dagger05,
+    HandGun01,
+    HandGun02,
+    MiniGun,
+    Rifle,
+    ShotGun,
+    Wep_scrythe,
+    Candy,
+    Drill
+}
+
+public enum TrapType
+{
+    None,
+    Trap_Saw,
+    Trap_Bear,
 }
 
 public enum ItemSuportType
 {
     None,
+    Heart,
+    Shield,
+    Power
 }
 
-public enum ObstactleType
+public enum StrengthType
 {
-    None,
+    Add,
+    Subtract,
+    Multiply
 }
+
+
