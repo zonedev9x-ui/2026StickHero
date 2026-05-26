@@ -25,7 +25,7 @@ public class Enemy : Character
 
     }
 
-    public void Attack(Character target)
+    public void Attack(Entity target)
     {
         currentState = CharacterState.Attack;
         currentTarget = target;

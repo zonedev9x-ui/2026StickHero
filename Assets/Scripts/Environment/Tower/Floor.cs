@@ -88,7 +88,7 @@ public class Floor : MonoBehaviour
     }
 
     public Entity GetCurrentEntity()
-    {
+    {   
         return entities[currentEntityIndex];
     }
 
@@ -101,7 +101,7 @@ public class Floor : MonoBehaviour
 
     public bool IsLastEnemyInFloor()
     {
-
+        return entities[entities.Count - 1] is Enemy;
     }
 
     public void BreakWalls()

@@ -12,7 +12,7 @@ public class Character : Entity
 
     [HideInInspector] public Floor currentFloor;
 
-    [HideInInspector] public Entity currentTarget;
+    public Entity currentTarget;
 
     protected string currentAnim;
 

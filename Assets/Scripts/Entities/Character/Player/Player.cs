@@ -113,7 +113,7 @@ public class Player : Character
             {
                 if (strengthScore.score > currentEnemy.strengthScore.score)
                 {
-                    if (currentFloor.IsLastEnemy())
+                    if (currentFloor.IsLastEnemyInFloor())
                     {
                         int randomAnimAttackFar = Random.Range(4, 7);
                         animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
