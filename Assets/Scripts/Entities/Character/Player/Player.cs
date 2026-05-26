@@ -11,8 +11,6 @@ public class Player : Character
 
     private void Update()
     {
-        UpdateIdle();
-        UpdateChangeSize();
     }
 
     private void UpdateIdle()
@@ -106,5 +104,33 @@ public class Player : Character
         //        enemy.Attack(this);
         //    }
         //}
+
+        if(currentTarget is Enemy)
+        {
+            Enemy currentEnemy = (Enemy)currentTarget;
+
+            if(currentEnemy.enemyType == EnemyType.Normal)
+            {
+                if (strengthScore.score > currentEnemy.strengthScore.score)
+                {
+                    if (currentFloor.IsLastEnemy())
+                    {
+                        int randomAnimAttackFar = Random.Range(4, 7);
+                        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
+                        PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                    }
+                    else
+                    {
+                        int randomAnimAttack = Random.Range(1, 4);
+                        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
+                        PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+                    }
+                }
+                else
+                {
+                    currentEnemy.Attack(this);
+                }
+            }
+        }
     }
 }

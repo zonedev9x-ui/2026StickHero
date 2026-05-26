@@ -77,7 +77,14 @@ public class Floor : MonoBehaviour
 
     public Vector3 SetPlayerPos()
     {
-        return spawnPos[currentEntityIndex].position;
+        if(entities.Count <= 1)
+        {
+            return spawnPos[1].position;
+        }
+        else
+        {
+            return spawnPos[spawnPos.Count - 1 - entities.Count].position;
+        }
     }
 
     public Entity GetCurrentEntity()
@@ -90,6 +97,11 @@ public class Floor : MonoBehaviour
         if (currentEntityIndex > entities.Count) return null;
 
         return entities[currentEntityIndex++];
+    }
+
+    public bool IsLastEnemyInFloor()
+    {
+
     }
 
     public void BreakWalls()
