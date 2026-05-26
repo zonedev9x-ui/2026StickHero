@@ -13,20 +13,84 @@ MonoBehaviour:
   m_Name: LevelData_0
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelIndex: 0
-  bossEnemyName: 0
+  bossEnemyData:
+    strengthScore: 0
+    enemyName: 0
+  playerData:
+    strengthScore: 10
   towerDatas:
   - floorDatas:
     - slotDatas:
       - strengthType: 0
-        strengthScore: 0
-        enemyName: 0
+        strengthScore: 5
+        enemyName: 1
         itemSuportType: 0
         weaponType: 0
         trapType: 0
-    - slotDatas: []
-    - slotDatas: []
+      - strengthType: 0
+        strengthScore: 10
+        enemyName: 4
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+    - slotDatas:
+      - strengthType: 2
+        strengthScore: 30
+        enemyName: 0
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 2
+      - strengthType: 0
+        strengthScore: 15
+        enemyName: 1
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+    - slotDatas:
+      - strengthType: 0
+        strengthScore: 21
+        enemyName: 2
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
   - floorDatas:
-    - slotDatas: []
-    - slotDatas: []
-    - slotDatas: []
-    - slotDatas: []
+    - slotDatas:
+      - strengthType: 0
+        strengthScore: 35
+        enemyName: 1
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+      - strengthType: 1
+        strengthScore: 15
+        enemyName: 0
+        itemSuportType: 2
+        weaponType: 0
+        trapType: 0
+    - slotDatas:
+      - strengthType: 0
+        strengthScore: 20
+        enemyName: 1
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+    - slotDatas:
+      - strengthType: 2
+        strengthScore: 125
+        enemyName: 0
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 1
+      - strengthType: 0
+        strengthScore: 5
+        enemyName: 1
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+    - slotDatas:
+      - strengthType: 0
+        strengthScore: 65
+        enemyName: 5
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0

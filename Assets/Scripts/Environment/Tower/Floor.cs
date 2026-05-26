@@ -11,10 +11,10 @@ public class Floor : MonoBehaviour
     public List<GameObject> walls;
     public List<BreakWall> breakWalls;
 
-    public List<GameObject> objs;
-    public bool isFloorEmpty = false;
+    public List<Entity> entities;
+    private bool isFloorEmpty = false;
     private bool isLock = false;
-    private int currentObjIndex;
+    public int currentEntityIndex;
 
     private void Start()
     {
@@ -22,6 +22,8 @@ public class Floor : MonoBehaviour
         {
             highlights[i].gameObject.SetActive(false);
         }
+
+        SortObjects();
     }
 
     //private void CreateEnemy()
@@ -38,6 +40,20 @@ public class Floor : MonoBehaviour
     //        Debug.Log("Enemy " + i + " spawn tai vi tri: " + spawnIndex);
     //    }
     //}
+
+    private void SortObjects()
+    {
+        if (entities.Count <= 0) return;
+
+        int startIndex = spawnPos.Count - entities.Count;
+
+        for (int i = 0; i < entities.Count; i++)
+        {
+            int spawnIndex = startIndex + i;
+            entities[i].transform.SetParent(spawnPos[spawnIndex]);
+            entities[i].transform.localPosition = Vector3.zero;
+        }
+    }
 
     public void ShowHighLight()
     {
@@ -59,41 +75,22 @@ public class Floor : MonoBehaviour
         highlights[1].gameObject.SetActive(false);
     }
 
-    //public bool IsLastEnemy()
-    //{
-    //    return currentObjIndex == objs.Count - 1;
-    //}
-
-    //public Transform GetTransformChild()
-    //{
-    //    return spawnPos[currentObjIndex];
-    //}
-
     public Vector3 SetPlayerPos()
     {
-        if (currentObjIndex == objs.Count - 1 || objs.Count <= 0)
-        {
-            return spawnPos[1].position;
-        }
-        else
-        {
-            return spawnPos[currentObjIndex - 1].position;
-        }
+        return spawnPos[currentEntityIndex].position;
     }
 
-    //public Enemy GetCurrentEnemy()
-    //{
-    //    if (enemies.Count <= 0 && currentEnemyIndex > enemies.Count - 1) return null;
+    public Entity GetCurrentEntity()
+    {
+        return entities[currentEntityIndex];
+    }
 
-    //    if (enemies[currentEnemyIndex].currentState == CharacterState.Dead)
-    //    {
-    //        return enemies[currentEnemyIndex++];
-    //    }
-    //    else
-    //    {
-    //        return enemies[currentEnemyIndex];
-    //    }
-    //}
+    public Entity GetNextEntity()
+    {
+        if (currentEntityIndex > entities.Count) return null;
+
+        return entities[currentEntityIndex++];
+    }
 
     public void BreakWalls()
     {

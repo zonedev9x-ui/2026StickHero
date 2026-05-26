@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 876417736}
   - component: {fileID: 876417738}
   - component: {fileID: 876417737}
+  - component: {fileID: 876417739}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -242,6 +243,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &876417739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876417735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc9c17e8335eaf43b9e90fcdb6bb7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraSmooth
+  moveSpeed: 5
+  distanceTowers: []
 --- !u!1 &1291462880
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,9 +376,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8187dfc999b87448c710af3661d690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelController
+  cameraSmooth: {fileID: 876417739}
   towerPrefab: {fileID: 4599160752730815837, guid: 9edda51a7b85c8d46ac04bb120bdeecd, type: 3}
   floorPrefab: {fileID: 435834952011718294, guid: de7fc976d78a2e54ca065cf10863b296, type: 3}
   playerPrefab: {fileID: 4311280115995774276, guid: db29742fb15604d4e9d9588b548f6e3f, type: 3}
+  itemSupportPrefab: {fileID: 4446740384871932553, guid: 2e423ad66537a02449e17ef5a8237543, type: 3}
+  weaponPrefab: {fileID: 6110268493313381132, guid: 5b5cfc89f5bd2624ba3299de6b57b325, type: 3}
+  trapPrefabs:
+  - {fileID: 4816072287044954982, guid: 61b9ffa3fa3b15b418c4a1f09fe3f10c, type: 3}
+  - {fileID: 6805025714274200955, guid: 4917dd1869853b84b9caa91a8e7859d7, type: 3}
   enemyPrefabs:
   - {fileID: 744997217750716937, guid: 88376ab3f42411846a0e841354943e8e, type: 3}
   - {fileID: 7417013592170111754, guid: 3668ef6c43b2c7145bfb1bd098b25d00, type: 3}

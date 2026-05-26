@@ -3,31 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelController : Singleton<LevelController>
-{
+{   
+    public CameraSmooth cameraSmooth;
     public Tower towerPrefab;
     public Floor floorPrefab;
     public Player playerPrefab;
+    public ItemSupport itemSupportPrefab;
+    public Weapon weaponPrefab;
+    public List<Trap> trapPrefabs;
     public List<Enemy> enemyPrefabs;
 
     public Transform tranStart;
-    public float towerSpacingX = 3f;
+    public float towerSpacingX = 10f;
     public float floorSpacingY = 3f;
 
     public List<Tower> towers;
     private int currentTowerIndex = 1;
 
     private void Awake()
-    {   
+    {
         GameData.Load();
 
         LoadLevel(0);
+
+
     }
 
     #region Init Level
 
     private void LoadLevel(int levelIndex)
     {
-        if(GameData.staticGameData == null) return;
+        if (GameData.staticGameData == null) return;
 
         LevelData levelData = GameData.staticGameData.staticLevelData.GetLevelDataIndex(levelIndex);
 
@@ -44,6 +50,7 @@ public class LevelController : Singleton<LevelController>
         towers.Add(playerTower);
 
         Player player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
+        player.InitCharacterScore(levelData.playerData.strengthScore);
 
         for (int towerIndex = 0; towerIndex < levelData.towerDatas.Count; towerIndex++)
         {
@@ -67,29 +74,64 @@ public class LevelController : Singleton<LevelController>
 
                 List<SlotData> slotDatas = floorDatas[floorIndex].slotDatas;
 
-                for(int slotIndex = 0; slotIndex < slotDatas.Count; slotIndex++)
+                for (int slotIndex = 0; slotIndex < slotDatas.Count; slotIndex++)
                 {
                     if (slotDatas[slotIndex].enemyName != EnemyName.None)
                     {
-                        for(int enemyIndex = 0; enemyIndex < enemyPrefabs.Count; enemyIndex++)
+                        for (int enemyIndex = 0; enemyIndex < enemyPrefabs.Count; enemyIndex++)
                         {
                             if (enemyPrefabs[enemyIndex].enemyName == slotDatas[slotIndex].enemyName)
                             {
                                 Transform spawnPoint = newFloor.spawnPos[slotIndex];
 
-                                Enemy newEnemy = Instantiate(enemyPrefabs[enemyIndex], spawnPoint.position, spawnPoint.rotation, newFloor.transform);
+                                Enemy newEnemy = Instantiate(enemyPrefabs[enemyIndex], spawnPoint.position, Quaternion.identity, newFloor.transform);
+                                newEnemy.InitCharacterScore(slotDatas[slotIndex].strengthScore);
+
+                                newFloor.entities.Add(newEnemy);
+                            }
+                        }
+                    }
+                    else if (slotDatas[slotIndex].itemSuportType != ItemSuportType.None)
+                    {
+                        ItemSupport newItemSupport = Instantiate(itemSupportPrefab, newFloor.spawnPos[slotIndex].position, Quaternion.identity, newFloor.transform);
+                        newItemSupport.InitItemSupport(slotDatas[slotIndex].itemSuportType, slotDatas[slotIndex].strengthType, slotDatas[slotIndex].strengthScore);
+                        newFloor.entities.Add(newItemSupport);
+                    }
+                    else if (slotDatas[slotIndex].weaponType != WeaponType.None)
+                    {
+                        Weapon newWeapon = Instantiate(weaponPrefab, newFloor.spawnPos[slotIndex].position, Quaternion.identity, newFloor.transform);
+                        newWeapon.InitWeapon(slotDatas[slotIndex].weaponType, slotDatas[slotIndex].strengthType, slotDatas[slotIndex].strengthScore);
+                        newFloor.entities.Add(newWeapon);
+                    }
+                    else if (slotDatas[slotIndex].trapType != TrapType.None)
+                    {
+                        for (int trapIndex = 0; trapIndex < trapPrefabs.Count; trapIndex++)
+                        {
+                            if (trapPrefabs[trapIndex].trapType == slotDatas[slotIndex].trapType)
+                            {
+                                Trap newTrap = Instantiate(trapPrefabs[trapIndex], newFloor.spawnPos[slotIndex].position, Quaternion.identity, newFloor.transform);
+                                newTrap.InitTrap(slotDatas[slotIndex].strengthType, slotDatas[slotIndex].strengthScore);
+                                newFloor.entities.Add(newTrap);
                             }
                         }
                     }
                 }
 
                 newTower.floors.Add(newFloor);
-
-
             }
-         
+
             towers.Add(newTower);
         }
+
+        List<float> distanceTowers = new List<float>();
+
+        for (int i = 1; i < towers.Count; i++)
+        {
+            float middeX = (towers[i].centerPoint.position.x + towers[i - 1].centerPoint.position.x) / 2f;
+            distanceTowers.Add(middeX);
+        }
+
+        cameraSmooth.InitCamera(distanceTowers);
     }
 
     private void ClearCurrentLevel()
@@ -115,18 +157,6 @@ public class LevelController : Singleton<LevelController>
             }
         }
 
-        return false;
-    }
-
-    public bool IsLastTowerEmpty()
-    {
-        if (currentTowerIndex == towers.Count - 1)
-        {
-            if (towers[currentTowerIndex].IsAllFloorEmpty())
-            {
-                return true;
-            }
-        }
         return false;
     }
 }

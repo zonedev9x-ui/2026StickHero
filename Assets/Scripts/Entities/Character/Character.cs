@@ -1,29 +1,29 @@
 using TMPro;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : Entity
 {
     public CharacterState currentState = CharacterState.Idle;
     public WeaponType weaponType = WeaponType.None;
-    public int strengthScore;
+    
     public Animator animator;
 
     [HideInInspector] public Tower currentTower;
 
     [HideInInspector] public Floor currentFloor;
 
-    [HideInInspector] public Character currentTarget;
+    [HideInInspector] public Entity currentTarget;
 
     protected string currentAnim;
 
     protected virtual void Start()
     {
-        //txtStrengthScore.text = strengthScore.ToString();
+        
     }
 
-    void Update()
+    public void InitCharacterScore(int score)
     {
-
+        strengthScore.InitStrengthScore(StrengthScoreType.None, score);
     }
 
     #region Anim and Physics
@@ -62,12 +62,7 @@ public class Character : MonoBehaviour
 
     #endregion
 
-    public Character GetTarget()
-    {
-        return currentTarget;
-    }
-
-    public virtual void SetCombatTarget(Character enemy, Floor floor)
+    public virtual void SetCombatTarget(Entity target, Floor floor)
     {
 
     }

@@ -5,35 +5,37 @@ public class StrengthScore : MonoBehaviour
 {   
     public TMP_Text txt_strengthScore;
 
-    private int strengthScore;
+    public int score;
 
-    public void InitStrengthScore(StrengthType type, int score)
+    public void InitStrengthScore(StrengthScoreType type, int score)
     {
-        strengthScore = score;
-
+        this.score = score;
         switch (type)
-        {
-            case StrengthType.Add:
-                txt_strengthScore.text = $"+ " + strengthScore.ToString();
+        {   
+            case StrengthScoreType.None:
+                txt_strengthScore.text = score.ToString();
                 break;
-            case StrengthType.Subtract:
-                txt_strengthScore.text = $"- " + strengthScore.ToString();
+            case StrengthScoreType.Add:
+                txt_strengthScore.text = $"+ " + score.ToString();
                 break;
-            case StrengthType.Multiply:
-                txt_strengthScore.text = $"x " + strengthScore.ToString();
+            case StrengthScoreType.Subtract:
+                txt_strengthScore.text = $"- " + score.ToString();
+                break;
+            case StrengthScoreType.Multiply:
+                txt_strengthScore.text = $"x " + score.ToString();
                 break;
         }
     }
 
     public void AddStrengthScore(int score)
     {
-        strengthScore += score;
-        txt_strengthScore.text = strengthScore.ToString();
+        this.score += score;
+        txt_strengthScore.text = this.score.ToString();
     }
 
     public void SubtractStrengthScore(int score)
     {
-        strengthScore -= score;
-        txt_strengthScore.text = strengthScore.ToString();
+        this.score -= score;
+        txt_strengthScore.text = this.score.ToString();
     }
 }

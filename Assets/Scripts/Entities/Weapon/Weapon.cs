@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : Entity
 {
-    public StrengthScore strengthScore;
-
     public List<ItemWeapon> itemWeapons;
 
-    public void InitWeapon(WeaponType weaponType, StrengthType strengthType, int score)
+    public void InitWeapon(WeaponType weaponType, StrengthScoreType strengthType, int score)
     {
         strengthScore.InitStrengthScore(strengthType, score);
 
@@ -22,10 +20,5 @@ public class Weapon : MonoBehaviour
                 itemWeapons[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    public void OnEnableWeapon(bool isOn)
-    {
-        gameObject.SetActive(isOn);
     }
 }

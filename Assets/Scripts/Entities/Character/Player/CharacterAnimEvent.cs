@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CharacterAnimEvent : MonoBehaviour
 {
@@ -9,17 +10,27 @@ public class CharacterAnimEvent : MonoBehaviour
 
     public void OnStrikeHit(int direction)
     {
-        if (character.GetTarget() != null)
+        if (character.currentTarget != null)
         {
-            character.GetTarget().TakeHit(direction);
+            Character target = character.currentTarget as Character;
+
+            if (target != null)
+            {
+                target.TakeHit(direction);
+            }
         }
     }
 
     public void OnAttackFinished()
     {
-        if (character.GetTarget() != null)
+        if (character.currentTarget != null)
         {
-            character.GetTarget().Die();
+            Character target = character.currentTarget as Character;
+
+            if (target != null)
+            {
+                target.Die();
+            }
         }
     }
 

@@ -1,15 +1,13 @@
 using TMPro;
 using UnityEngine;
 
-public class ItemSupport : MonoBehaviour
+public class ItemSupport : Entity
 {
     public GameObject itemHeart;
     public GameObject itemShield;
     public GameObject itemPower;
 
-    public StrengthScore strengthScore;
-
-    public void InitItemSupport(ItemSuportType suportType, StrengthType strengthType, int score)
+    public void InitItemSupport(ItemSuportType suportType, StrengthScoreType strengthType, int score)
     {
         switch (suportType)
         {
@@ -32,10 +30,5 @@ public class ItemSupport : MonoBehaviour
                 strengthScore.InitStrengthScore(strengthType, score);
                 break;
         }
-    }
-
-    public void OnEnableItemSupport(bool isOn)
-    {
-        gameObject.SetActive(isOn);
     }
 }

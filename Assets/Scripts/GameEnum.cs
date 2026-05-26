@@ -119,8 +119,9 @@ public enum ItemSuportType
     Power
 }
 
-public enum StrengthType
-{
+public enum StrengthScoreType
+{   
+    None,
     Add,
     Subtract,
     Multiply

@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class PlayerDrag : MonoBehaviour
 {
-    private Character player;
+    public Character player;
     private Camera mainCamera;
     private Vector3 offset;
     private Vector3 oldParent;
-    public bool isDragging = false;
 
-    private Enemy currentEnemy;
+    private bool isDragging = false;
+    private Entity currentTarget;
 
     void Start()
     {
-        player = GetComponent<Player>();
         mainCamera = Camera.main;
         oldParent = transform.parent.position;
     }
@@ -29,7 +28,7 @@ public class PlayerDrag : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (player.currentState != CharacterState.Idle ) return;
+        if (player.currentState != CharacterState.Idle) return;
 
         offset = transform.position - mainCamera.ScreenToWorldPoint(Input.mousePosition);
         player.PlayAnim(ConstantData.ANIM_TRIGGER_GRAB);
@@ -74,10 +73,11 @@ public class PlayerDrag : MonoBehaviour
 
                             player.currentFloor.HideHighLight();
                             player.currentFloor.ShowHighLightSelect();
-                            //currentEnemy = player.currentFloor.GetCurrentEnemy();
+                            currentTarget = player.currentFloor.GetCurrentEntity();
+                            Debug.Log("currentTarget" + player.currentTarget);
                         }
                     }
-                    else 
+                    else
                     {
                         player.currentFloor = floor;
                     }
@@ -88,7 +88,7 @@ public class PlayerDrag : MonoBehaviour
         }
 
         player.currentFloor = null;
-        currentEnemy = null;
+        currentTarget = null;
         if (player.currentTower != null)
         {
             player.currentTower.ShowAllHighlightNormal();
@@ -106,7 +106,7 @@ public class PlayerDrag : MonoBehaviour
 
         if (player.currentFloor != null)
         {
-            //transform.position = player.currentFloor.SetPlayerPos();
+            transform.position = player.currentFloor.SetPlayerPos();
             //transform.SetParent(player.currentFloor.GetTransformChild());
         }
         else
@@ -119,9 +119,9 @@ public class PlayerDrag : MonoBehaviour
             player.currentTower.HideAllHighlight();
         }
 
-        if (currentEnemy != null)
+        if (currentTarget != null)
         {
-            player.SetCombatTarget(currentEnemy, player.currentFloor);
+            player.SetCombatTarget(currentTarget, player.currentFloor);
         }
     }
 }

@@ -19,13 +19,13 @@ public class Player : Character
     {
         if (currentState == CharacterState.Idle)
         {
-            Tower currentTower = LevelController.Instance.SetCurrentTower();
-            if (currentTower != null && currentTower.IsAllFloorEmpty() == true)
-            {
-                currentState = CharacterState.ChangeSize;
-                PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
-                return;
-            }
+            //Tower currentTower = LevelController.Instance.SetCurrentTower();
+            //if (currentTower != null)
+            //{
+            //    currentState = CharacterState.ChangeSize;
+            //    PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
+            //    return;
+            //}
         }
     }
 
@@ -64,10 +64,10 @@ public class Player : Character
         }
     }
 
-    public override void SetCombatTarget(Character enemy, Floor floor)
+    public override void SetCombatTarget(Entity target, Floor floor)
     {
         currentState = CharacterState.Attack;
-        currentTarget = enemy;
+        currentTarget = target;
         currentFloor = floor;
 
         StartCoroutine(IAttackEnemy());
@@ -82,29 +82,29 @@ public class Player : Character
 
     public void AttackEnemy()
     {
-        Enemy enemy = currentTarget as Enemy;
+        //Enemy enemy = currentTarget as Enemy;
 
-        if (enemy.enemyType == EnemyType.Normal)
-        {
-            if (strengthScore > enemy.strengthScore)
-            {
-                //if (currentFloor.IsLastEnemy())
-                //{
-                //    int randomAnimAttackFar = Random.Range(4, 7);
-                //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
-                //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                //}
-                //else
-                //{
-                //    int randomAnimAttack = Random.Range(1, 4);
-                //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
-                //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                //}
-            }
-            else
-            {
-                enemy.Attack(this);
-            }
-        }
+        //if (enemy.enemyType == EnemyType.Normal)
+        //{
+        //    if (strengthScore.score > enemy.strengthScore.score)
+        //    {
+        //        //if (currentFloor.IsLastEnemy())
+        //        //{
+        //        //    int randomAnimAttackFar = Random.Range(4, 7);
+        //        //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
+        //        //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+        //        //}
+        //        //else
+        //        //{
+        //        //    int randomAnimAttack = Random.Range(1, 4);
+        //        //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
+        //        //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+        //        //}
+        //    }
+        //    else
+        //    {
+        //        enemy.Attack(this);
+        //    }
+        //}
     }
 }

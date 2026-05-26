@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class SlotData
 {   
-    public StrengthType strengthType;
+    public StrengthScoreType strengthType;
     public int strengthScore;
 
     public EnemyName enemyName;

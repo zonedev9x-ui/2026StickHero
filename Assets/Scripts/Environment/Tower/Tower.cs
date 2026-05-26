@@ -5,6 +5,7 @@ public class Tower : MonoBehaviour
 {
     public float floorSpacingY = 3f;
 
+    public Transform centerPoint;
     public Summit summit;
     public List<Floor> floors;
 
@@ -33,17 +34,17 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public bool IsAllFloorEmpty()
-    {
-        for (int i = 0; i < floors.Count; i++)
-        {
-            if (floors[i].isFloorEmpty == true)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    //public bool IsAllFloorEmpty()
+    //{
+    //    for (int i = 0; i < floors.Count; i++)
+    //    {
+    //        if (floors[i].isFloorEmpty == true)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 
     public void BreakWalls()
     {
