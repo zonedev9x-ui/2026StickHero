@@ -80,31 +80,6 @@ public class Player : Character
 
     public void AttackEnemy()
     {
-        //Enemy enemy = currentTarget as Enemy;
-
-        //if (enemy.enemyType == EnemyType.Normal)
-        //{
-        //    if (strengthScore.score > enemy.strengthScore.score)
-        //    {
-        //        //if (currentFloor.IsLastEnemy())
-        //        //{
-        //        //    int randomAnimAttackFar = Random.Range(4, 7);
-        //        //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
-        //        //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-        //        //}
-        //        //else
-        //        //{
-        //        //    int randomAnimAttack = Random.Range(1, 4);
-        //        //    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
-        //        //    PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-        //        //}
-        //    }
-        //    else
-        //    {
-        //        enemy.Attack(this);
-        //    }
-        //}
-
         if(currentTarget is Enemy)
         {
             Enemy currentEnemy = (Enemy)currentTarget;

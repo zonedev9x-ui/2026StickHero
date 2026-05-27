@@ -23716,23 +23716,16 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.24794404
-    functionName: TriggerFxAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 4
+    intParameter: 2
     messageOptions: 0
   - time: 0.27727166
-    functionName: FinalAttack
+    functionName: OnAttackFinished
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 4
-    messageOptions: 0
-  - time: 0.56666666
-    functionName: SetControllable
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
     messageOptions: 0

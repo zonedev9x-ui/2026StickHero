@@ -10,4 +10,14 @@ public class Entity : MonoBehaviour
     {
         return isInteraction = isOn;
     }
+
+    protected virtual void EnableStrengthScore(bool isOn)
+    {
+        strengthScore.gameObject.SetActive(isOn);
+    }
+
+    protected virtual void UpdateStrengthScore()
+    {
+
+    }
 }

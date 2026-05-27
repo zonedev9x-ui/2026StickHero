@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UIElements;
 
 public class CharacterAnimEvent : MonoBehaviour
 {
@@ -21,13 +22,21 @@ public class CharacterAnimEvent : MonoBehaviour
         }
     }
 
-    public void OnAttackFinished()
+    public void OnAttackFinished(float force)
     {
         if (character.currentTarget != null)
         {
-            if(character.currentTarget is Enemy)
+            if (character.currentTarget is Character)
             {
-
+                Character c = character.currentTarget as Character;
+                if (c != null)
+                {
+                    c.Die();
+                }
+            }
+            else
+            {
+                character.currentTarget.IsInteraction(true);
             }
         }
     }

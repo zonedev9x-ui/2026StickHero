@@ -58203,59 +58203,24 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.08570716
-    functionName: TriggerFxAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 4
-    messageOptions: 0
   - time: 0.13676839
-    functionName: TriggerAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 4
-    messageOptions: 0
-  - time: 0.2555462
-    functionName: TriggerFxAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 4
+    intParameter: 1
     messageOptions: 0
   - time: 0.33351162
-    functionName: TriggerAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 4
-    messageOptions: 0
-  - time: 0.7249175
-    functionName: TriggerFxAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 3
-    messageOptions: 0
-  - time: 0.774748
-    functionName: PlayFxHammer
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 0.78753453
-    functionName: FinalAttack
+    functionName: OnAttackFinished
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 3
-    messageOptions: 0
-  - time: 1.3166667
-    functionName: SetControllable
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
     messageOptions: 0

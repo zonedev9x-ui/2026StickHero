@@ -35,13 +35,15 @@ public class PlayerDrag : MonoBehaviour
         isDragging = true;
 
         oldParent = transform.parent.position;
-
+        
+        player.currentFloor = null;
+        player.currentTarget = null;
         player.currentTower = LevelController.Instance.SetCurrentTower();
 
         if (player.currentTower != null)
         {
             player.currentTower.ShowAllHighlightNormal();
-        }
+        }   
     }
 
     private void OnMouseDrag()
@@ -75,8 +77,6 @@ public class PlayerDrag : MonoBehaviour
                             player.currentFloor.ShowHighLightSelect();
 
                             currentTarget = player.currentFloor.GetCurrentEntity();
-
-                            Debug.Log("currentTarget: " + currentTarget);
                         }
                     }
                     else
@@ -109,7 +109,7 @@ public class PlayerDrag : MonoBehaviour
         if (player.currentFloor != null)
         {
             transform.position = player.currentFloor.SetPlayerPos();
-            //transform.SetParent(player.currentFloor.GetTransformChild());
+            transform.SetParent(player.currentFloor.transform);
         }
         else
         {

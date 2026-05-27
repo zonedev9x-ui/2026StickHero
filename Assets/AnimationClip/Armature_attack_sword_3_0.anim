@@ -51507,52 +51507,38 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.07864517
-    functionName: TriggerFxAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 5
-    messageOptions: 0
   - time: 0.13086225
-    functionName: TriggerAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 5
+    intParameter: 1
     messageOptions: 0
   - time: 0.3288697
-    functionName: TriggerFxAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 4
+    intParameter: 3
     messageOptions: 0
   - time: 0.3722725
-    functionName: TriggerAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 5
+    intParameter: 3
     messageOptions: 0
   - time: 0.6896312
-    functionName: TriggerFxAttack
+    functionName: OnStrikeHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 3
     messageOptions: 0
   - time: 0.7226625
-    functionName: FinalAttack
+    functionName: OnAttackFinished
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 3
-    messageOptions: 0
-  - time: 0.8666667
-    functionName: SetControllable
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
     messageOptions: 0

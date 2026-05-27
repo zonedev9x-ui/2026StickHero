@@ -89,9 +89,16 @@ public class Floor : MonoBehaviour
 
     public Entity GetCurrentEntity()
     {
-        if (entities[currentEntityIndex] is Enemy)
-        {
-            return entities[currentEntityIndex];
+        if (entities[currentEntityIndex].IsInteraction(true) == true)
+        {   
+            if(currentEntityIndex < entities.Count)
+            {
+                return entities[currentEntityIndex++];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         return entities[currentEntityIndex];
