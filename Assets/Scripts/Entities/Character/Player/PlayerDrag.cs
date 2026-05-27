@@ -110,6 +110,7 @@ public class PlayerDrag : MonoBehaviour
         {
             transform.position = player.currentFloor.SetPlayerPos();
             transform.SetParent(player.currentFloor.transform);
+            player.currentFloor.GetNextEntity();
         }
         else
         {

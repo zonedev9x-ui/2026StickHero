@@ -29,12 +29,12 @@ public class Player : Character
 
     private void UpdateChangeSize()
     {
-        if(currentState == CharacterState.ChangeSize)
+        if (currentState == CharacterState.ChangeSize)
         {
             //timer += Time.deltaTime;
             //float t = timer / duration;
             //transform.localScale = Vector3.Lerp(startScale, targetScale, t);
-            
+
             //if(t >= duration)
             //{
 
@@ -80,11 +80,11 @@ public class Player : Character
 
     public void AttackEnemy()
     {
-        if(currentTarget is Enemy)
+        if (currentTarget is Enemy)
         {
             Enemy currentEnemy = (Enemy)currentTarget;
 
-            if(currentEnemy.enemyType == EnemyType.Normal)
+            if (currentEnemy.enemyType == EnemyType.Normal)
             {
                 if (strengthScore.score > currentEnemy.strengthScore.score)
                 {

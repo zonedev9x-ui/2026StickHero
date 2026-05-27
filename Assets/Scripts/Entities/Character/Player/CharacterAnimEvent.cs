@@ -22,7 +22,7 @@ public class CharacterAnimEvent : MonoBehaviour
         }
     }
 
-    public void OnAttackFinished(float force)
+    public void OnAttackFinished()
     {
         if (character.currentTarget != null)
         {
@@ -31,12 +31,14 @@ public class CharacterAnimEvent : MonoBehaviour
                 Character c = character.currentTarget as Character;
                 if (c != null)
                 {
+                    if (character is Player)
+                    {
+                        Debug.Log("UpdateStrengthScore");
+                        character.UpdateStrengthScore(c.strengthScore);
+                    }
+
                     c.Die();
                 }
-            }
-            else
-            {
-                character.currentTarget.IsInteraction(true);
             }
         }
     }

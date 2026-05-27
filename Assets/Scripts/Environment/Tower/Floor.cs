@@ -77,7 +77,7 @@ public class Floor : MonoBehaviour
 
     public Vector3 SetPlayerPos()
     {
-        if(entities.Count <= 1)
+        if (entities.Count <= 1)
         {
             return spawnPos[1].position;
         }
@@ -89,31 +89,21 @@ public class Floor : MonoBehaviour
 
     public Entity GetCurrentEntity()
     {
-        if (entities[currentEntityIndex].IsInteraction(true) == true)
-        {   
-            if(currentEntityIndex < entities.Count)
-            {
-                return entities[currentEntityIndex++];
-            }
-            else
-            {
-                return null;
-            }
-        }
+        if (currentEntityIndex > entities.Count - 1) return null;
 
         return entities[currentEntityIndex];
     }
 
     public Entity GetNextEntity()
-    {
-        if (currentEntityIndex > entities.Count) return null;
+    {   
+        if(entities.Count <= 0 && currentEntityIndex > entities.Count - 1) return null;
 
         return entities[currentEntityIndex++];
     }
 
     public bool IsLastEnemyInFloor()
-    {   
-        if(entities.Count == 1)
+    {
+        if (currentEntityIndex == entities.Count)
         {
             return true;
         }

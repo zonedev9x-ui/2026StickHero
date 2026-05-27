@@ -4,20 +4,20 @@ public class Entity : MonoBehaviour
 {
     public StrengthScore strengthScore;
 
-    private bool isInteraction = false;
+    public bool isInteraction = false;
 
-    public bool IsInteraction(bool isOn)
+    public bool IsInteraction()
     {
-        return isInteraction = isOn;
+        return isInteraction;
+    }
+
+    public void EnableInteraction(bool isOn)
+    {
+        isInteraction = isOn;
     }
 
     protected virtual void EnableStrengthScore(bool isOn)
     {
         strengthScore.gameObject.SetActive(isOn);
-    }
-
-    protected virtual void UpdateStrengthScore()
-    {
-
     }
 }

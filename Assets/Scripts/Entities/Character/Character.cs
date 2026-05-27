@@ -76,9 +76,9 @@ public class Character : Entity
     public void Die()
     {
         currentState = CharacterState.Dead;
-        IsInteraction(true);
-        EnableStrengthScore(false);
+        EnableInteraction(true);
         EnableRagdoll(true);
+        EnableStrengthScore(false);
     }
 
     protected void ChangeAnimAttack(WeaponType newType)
@@ -114,6 +114,23 @@ public class Character : Entity
         int randomAnimAttack = Random.Range(min, max);
         animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
         PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+    }
+
+    public void UpdateStrengthScore(StrengthScore targetStrengthScore)
+    {
+        switch (targetStrengthScore.scoreType)
+        {
+            case StrengthScoreType.None:
+            case StrengthScoreType.Add:
+                this.strengthScore.AddStrengthScore(targetStrengthScore.score);
+                break;
+            case StrengthScoreType.Subtract:
+                this.strengthScore.SubtractStrengthScore(targetStrengthScore.score);
+                break;
+            case StrengthScoreType.Multiply:
+                this.strengthScore.MultiplyStrengthScore(targetStrengthScore.score);
+                break;
+        }
     }
 }
 
