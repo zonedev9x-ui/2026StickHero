@@ -76,6 +76,7 @@ public class Character : Entity
     public void Die()
     {
         currentState = CharacterState.Dead;
+        IsInteraction(true);
         EnableRagdoll(true);
     }
 

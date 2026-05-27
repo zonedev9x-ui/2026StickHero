@@ -73,6 +73,7 @@ public class PlayerDrag : MonoBehaviour
 
                             player.currentFloor.HideHighLight();
                             player.currentFloor.ShowHighLightSelect();
+
                             currentTarget = player.currentFloor.GetCurrentEntity();
 
                             Debug.Log("currentTarget: " + currentTarget);

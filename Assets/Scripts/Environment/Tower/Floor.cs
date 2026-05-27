@@ -88,7 +88,12 @@ public class Floor : MonoBehaviour
     }
 
     public Entity GetCurrentEntity()
-    {   
+    {
+        if (entities[currentEntityIndex] is Enemy)
+        {
+            return entities[currentEntityIndex];
+        }
+
         return entities[currentEntityIndex];
     }
 
@@ -100,8 +105,12 @@ public class Floor : MonoBehaviour
     }
 
     public bool IsLastEnemyInFloor()
-    {
-        return entities[entities.Count - 1] is Enemy;
+    {   
+        if(entities.Count == 1)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void BreakWalls()

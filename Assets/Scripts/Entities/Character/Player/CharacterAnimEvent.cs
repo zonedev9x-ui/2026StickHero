@@ -25,11 +25,9 @@ public class CharacterAnimEvent : MonoBehaviour
     {
         if (character.currentTarget != null)
         {
-            Character target = character.currentTarget as Character;
-
-            if (target != null)
+            if(character.currentTarget is Enemy)
             {
-                target.Die();
+
             }
         }
     }
