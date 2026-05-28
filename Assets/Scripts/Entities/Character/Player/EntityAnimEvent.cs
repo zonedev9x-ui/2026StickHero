@@ -3,17 +3,25 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
-public class CharacterAnimEvent : MonoBehaviour
+public class EntityAnimEvent : MonoBehaviour
 {
-    public Character character;
+    public Entity entity;
     public float duration = 0.2f;
-    Coroutine currentScale;
+    //public float 
+
+    private Animator animator;
+    private Coroutine currentScale;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     public void OnStrikeHit(int direction)
     {
-        if (character.currentTarget != null)
+        if (entity.currentTarget != null)
         {
-            Character target = character.currentTarget as Character;
+            Character target = entity.currentTarget as Character;
 
             if (target != null)
             {
@@ -24,17 +32,17 @@ public class CharacterAnimEvent : MonoBehaviour
 
     public void OnAttackFinished()
     {
-        if (character.currentTarget != null)
+        if (entity.currentTarget != null)
         {
-            if (character.currentTarget is Character)
+            if (entity.currentTarget is Enemy)
             {
-                Character c = character.currentTarget as Character;
+                Enemy c = entity.currentTarget as Enemy;
                 if (c != null)
                 {
-                    if (character is Player)
+                    if (entity is Player)
                     {
-                        Debug.Log("UpdateStrengthScore");
-                        character.UpdateStrengthScore(c.strengthScore);
+                        Player player = entity as Player;
+                        player.UpdateStrengthScore(c.strengthScore);
                     }
 
                     c.Die();
@@ -45,7 +53,8 @@ public class CharacterAnimEvent : MonoBehaviour
 
     public void OnChangeState(CharacterState state)
     {
-        character.currentState = state;
+        Character c = entity as Character;
+        c.currentState = state;
     }
 
     public void ScaleTo(float target)
@@ -69,23 +78,33 @@ public class CharacterAnimEvent : MonoBehaviour
 
             float t = timer / duration;
 
-            character.transform.localScale =
+            entity.transform.localScale =
                 Vector3.Lerp(startScale, targetScale, t);
 
             yield return null;
         }
 
-        character.transform.localScale = targetScale;
+        entity.transform.localScale = targetScale;
     }
 
     public void BreakWalls()
     {
-        character.GetComponent<Collider>().isTrigger = false;
-        character.currentTower.BreakWalls();
+        entity.GetComponent<Collider>().isTrigger = false;
+
+        if(entity is Player)
+        {
+            Player player = entity as Player;
+            player.currentTower.BreakWalls();
+        }
     }
 
     public void EnableTriggerCharacter()
     {
-        character.GetComponent<Collider>().isTrigger = true;
+        entity.GetComponent<Collider>().isTrigger = true;
+    }
+
+    public void HideObject()
+    {
+        entity.gameObject.SetActive(false);
     }
 }

@@ -12,7 +12,7 @@ public class Character : Entity
 
     [HideInInspector] public Floor currentFloor;
 
-    public Entity currentTarget;
+    //public Entity currentTarget;
 
     protected string currentAnim;
 
@@ -47,25 +47,15 @@ public class Character : Entity
 
     public virtual void EnablePhysics(bool isEnabled)
     {
-        //Collider col = GetComponentInChildren<Collider>();
         Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
 
         foreach (Rigidbody rb in bodies)
         {
             rb.isKinematic = !isEnabled;
         }
-        //if (col != null)
-        //{
-        //    col.enabled = isEnabled;
-        //}
     }
 
     #endregion
-
-    public virtual void SetCombatTarget(Entity target, Floor floor)
-    {
-
-    }
 
     public virtual void TakeHit(int direction)
     {
@@ -76,7 +66,7 @@ public class Character : Entity
     public void Die()
     {
         currentState = CharacterState.Dead;
-        EnableInteraction(true);
+
         EnableRagdoll(true);
         EnableStrengthScore(false);
     }
@@ -130,6 +120,11 @@ public class Character : Entity
             case StrengthScoreType.Multiply:
                 this.strengthScore.MultiplyStrengthScore(targetStrengthScore.score);
                 break;
+        }
+
+        if (strengthScore.score <= 0)
+        {
+            Die();
         }
     }
 }

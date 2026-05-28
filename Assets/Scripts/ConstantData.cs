@@ -33,4 +33,6 @@ public class ConstantData
     public const float ANIM_DAMAGE_DOWM = 2;
     public const float ANIM_DAMAGE_UP = 3;
     public const float ANIM_DAMAGE_STRAIGHT = 1;
+
+    public const string ANIM_TRAP_BEAR_IS_ACTIVE = "isActive";
 }

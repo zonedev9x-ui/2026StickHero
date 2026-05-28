@@ -1,16 +1,17 @@
-﻿using System.Collections;
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character
 {
+    public List<ItemWeapon> itemWeapons;
+    private Coroutine interactCoroutine;
+
     protected override void Start()
     {
         base.Start();
         EnablePhysics(false);
-    }
-
-    private void Update()
-    {
     }
 
     private void UpdateIdle()
@@ -42,11 +43,6 @@ public class Player : Character
         }
     }
 
-    public void TriggerAnim(string anim)
-    {
-        PlayAnim(anim);
-    }
-
     public void EnablePhysicsAndColliders(bool isEnabled)
     {
         Collider col = GetComponentInChildren<Collider>();
@@ -62,49 +58,96 @@ public class Player : Character
         }
     }
 
-    public override void SetCombatTarget(Entity target, Floor floor)
+    public void SetCombatTarget(Entity target, Floor floor)
     {
         currentState = CharacterState.Attack;
         currentTarget = target;
         currentFloor = floor;
 
-        StartCoroutine(IAttackEnemy());
+        EntityInteraction();
     }
 
-    private IEnumerator IAttackEnemy()
+    private IEnumerator IEntityInteraction()
     {
         yield return new WaitForSeconds(0.5f);
 
-        AttackEnemy();
-    }
-
-    public void AttackEnemy()
-    {
         if (currentTarget is Enemy)
         {
             Enemy currentEnemy = (Enemy)currentTarget;
+            AttackEnemy(currentEnemy);
+        }
+    }
 
-            if (currentEnemy.enemyType == EnemyType.Normal)
+    public void EntityInteraction()
+    {
+        if (currentTarget is Enemy)
+        {
+            if (interactCoroutine != null)
             {
-                if (strengthScore.score > currentEnemy.strengthScore.score)
+                StopCoroutine(interactCoroutine);
+            }
+
+            interactCoroutine = StartCoroutine(IEntityInteraction());
+        }
+        else if (currentTarget is Weapon)
+        {
+            Weapon currentWeapon = (Weapon)currentTarget;
+            UpdateStrengthScore(currentWeapon.strengthScore);
+            EquipWeapon(currentWeapon);
+        }
+        else if (currentTarget is Trap)
+        {
+            Trap currentTrap = (Trap)currentTarget;
+            currentTrap.Attack();
+            UpdateStrengthScore(currentTrap.strengthScore);
+
+        }
+        else
+        {   
+            currentTarget.gameObject.SetActive(false);
+            UpdateStrengthScore(currentTarget.strengthScore);
+        }
+    }
+
+    private void AttackEnemy(Enemy currentEnemy)
+    {
+        if (currentEnemy.enemyType == EnemyType.Normal)
+        {
+            if (strengthScore.score > currentEnemy.strengthScore.score)
+            {
+                if (currentFloor.IsLastEnemyInFloor())
                 {
-                    if (currentFloor.IsLastEnemyInFloor())
-                    {
-                        int randomAnimAttackFar = Random.Range(4, 7);
-                        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
-                        PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                    }
-                    else
-                    {
-                        int randomAnimAttack = Random.Range(1, 4);
-                        animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
-                        PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
-                    }
+                    int randomAnimAttackFar = Random.Range(4, 7);
+                    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
                 }
                 else
                 {
-                    currentEnemy.Attack(this);
+                    int randomAnimAttack = Random.Range(1, 4);
+                    animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
                 }
+
+                PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+            }
+            else
+            {
+                currentEnemy.Attack(this);
+            }
+        }
+    }
+
+    private void EquipWeapon(Weapon weapon)
+    {
+        for (int i = 0; i < itemWeapons.Count; i++)
+        {
+            if (itemWeapons[i].weaponType == weapon.weaponType)
+            {
+                itemWeapons[i].gameObject.SetActive(true);
+                weapon.gameObject.SetActive(false);
+                PlayAnim(ConstantData.ANIM_TRIGGER_GET_ITEM);
+            }
+            else
+            {
+                itemWeapons[i].gameObject.SetActive(false);
             }
         }
     }

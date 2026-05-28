@@ -3529,7 +3529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac513b128a7b874094eaf3d8931a2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimEvent
-  character: {fileID: 7971100990665228231}
+  entity: {fileID: 7971100990665228231}
   duration: 0.2
 --- !u!1 &5464308946554676267
 GameObject:
@@ -4402,12 +4402,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   strengthScore: {fileID: 6283162287637419471}
+  currentTarget: {fileID: 0}
   currentState: 0
   weaponType: 0
   animator: {fileID: 6515563475078624278}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
-  currentTarget: {fileID: 0}
   enemyType: 1
   enemyName: 0
   isAnimAttackSingle: 0

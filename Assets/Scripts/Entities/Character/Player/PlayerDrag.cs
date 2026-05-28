@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerDrag : MonoBehaviour
 {
-    public Character player;
+    public Player player;
     private Camera mainCamera;
     private Vector3 offset;
     private Vector3 oldParent;

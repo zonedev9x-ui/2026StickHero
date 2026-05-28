@@ -9,4 +9,9 @@ public class Trap : Entity
     {
         strengthScore.InitStrengthScore(type, score);
     }
+
+    public virtual void Attack()
+    {
+
+    }
 }

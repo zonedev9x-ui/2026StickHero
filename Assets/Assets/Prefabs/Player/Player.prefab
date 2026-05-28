@@ -80,12 +80,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   strengthScore: {fileID: 8178085517700135203}
+  currentTarget: {fileID: 0}
   currentState: 0
   weaponType: 0
   animator: {fileID: 5371083313915049813}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
-  currentTarget: {fileID: 0}
+  itemWeapons:
+  - {fileID: 255382682631790667}
+  - {fileID: 4551810502749464267}
+  - {fileID: 1652350272688793289}
+  - {fileID: 7160261267906723950}
+  - {fileID: 6342542680795172305}
+  - {fileID: 6097440603660623329}
+  - {fileID: 1562607357025770045}
+  - {fileID: 1259011292424776898}
+  - {fileID: 8869547976270931081}
+  - {fileID: 7856524932885418899}
+  - {fileID: 2192960195384051743}
+  - {fileID: 6882969735259946499}
 --- !u!114 &8808825184174329528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDrag
   player: {fileID: 4311280115995774276}
-  isDragging: 0
 --- !u!1 &60106351717902221
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +215,7 @@ GameObject:
   - component: {fileID: 8521146328818244123}
   - component: {fileID: 4774735717854944330}
   - component: {fileID: 587835648085065588}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +572,7 @@ GameObject:
   - component: {fileID: 3230209359210865481}
   - component: {fileID: 3324831862133128771}
   - component: {fileID: 869980217721855238}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1004,7 +1016,8 @@ GameObject:
   - component: {fileID: 1923895421456999675}
   - component: {fileID: 1336338038683401476}
   - component: {fileID: 3261937378655290796}
-  m_Layer: 7
+  - component: {fileID: 1259011292424776898}
+  m_Layer: 0
   m_Name: rifle_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1126,12 +1139,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.649075, y: 0.1315416, z: 0.15611482}
   m_Center: {x: 0.15022835, y: -0.014563529, z: 0.0004466801}
+--- !u!114 &1259011292424776898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356921976053697864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 8
 --- !u!1 &518633471950949917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1171,7 @@ GameObject:
   - component: {fileID: 7797756307518260178}
   - component: {fileID: 7545200125051342133}
   - component: {fileID: 5303529481952419716}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: hammer05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1417,7 +1443,7 @@ GameObject:
   - component: {fileID: 4709850623596817708}
   - component: {fileID: 5403903364169601369}
   - component: {fileID: 2460122710005866359}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: hamme01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1917,7 +1943,8 @@ GameObject:
   - component: {fileID: 2317006217202670568}
   - component: {fileID: 4420088094859077846}
   - component: {fileID: 4611656188765817618}
-  m_Layer: 7
+  - component: {fileID: 4551810502749464267}
+  m_Layer: 0
   m_Name: wep_scythe (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2013,7 +2040,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2048,6 +2075,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4551810502749464267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045764002284479196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 10
 --- !u!1 &1045886746964764950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,7 +2101,7 @@ GameObject:
   - component: {fileID: 2044889954453410007}
   - component: {fileID: 1501367865433791162}
   - component: {fileID: 7197167188681653934}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: axe04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2201,7 +2241,8 @@ GameObject:
   - component: {fileID: 339707879720528486}
   - component: {fileID: 2375612980214594442}
   - component: {fileID: 8245549836082274386}
-  m_Layer: 7
+  - component: {fileID: 6342542680795172305}
+  m_Layer: 0
   m_Name: sword07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,12 +2363,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.70223147, y: 2.56058, z: 0.07673999}
   m_Center: {x: -0.00000013048161, y: -0.97999156, z: 0.00000004174997}
+--- !u!114 &6342542680795172305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053807794841818172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 1
 --- !u!1 &1087172951502137362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,7 +2391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6867080779805824289}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: fx_shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2368,7 +2422,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4649903431596279876}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: fx_minigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2658,7 +2712,7 @@ GameObject:
   - component: {fileID: 9163139056166427211}
   - component: {fileID: 2359963033959280661}
   - component: {fileID: 2099923573494280240}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2888,7 +2942,7 @@ GameObject:
   - component: {fileID: 1979554074525784267}
   - component: {fileID: 5570106039445534892}
   - component: {fileID: 4576433827271334506}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3028,7 +3082,7 @@ GameObject:
   - component: {fileID: 509730866901823700}
   - component: {fileID: 6382822758343359489}
   - component: {fileID: 3979778728723263240}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: handgun_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3233,7 +3287,7 @@ GameObject:
   - component: {fileID: 5819561378951676766}
   - component: {fileID: 8447662718797887112}
   - component: {fileID: 8766756306730258353}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5858,7 +5912,7 @@ GameObject:
   - component: {fileID: 4047326706321141142}
   - component: {fileID: 7507663008598122350}
   - component: {fileID: 5719710237475254223}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: dagger02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6090,7 +6144,7 @@ GameObject:
   - component: {fileID: 8499509267916221157}
   - component: {fileID: 3373309876940782563}
   - component: {fileID: 3740587726197188205}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6408,7 +6462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 98263087446311011}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: fx_rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6474,7 +6528,7 @@ GameObject:
   - component: {fileID: 5931967380781921628}
   - component: {fileID: 698071710164222813}
   - component: {fileID: 6820078298852481161}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: dagger01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6614,7 +6668,9 @@ GameObject:
   - component: {fileID: 2505800523691844696}
   - component: {fileID: 8915065091200336534}
   - component: {fileID: 8615014528009897372}
-  m_Layer: 7
+  - component: {fileID: 7160261267906723950}
+  - component: {fileID: 3237874957774816020}
+  m_Layer: 0
   m_Name: screwhammer (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6693,6 +6749,46 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7160261267906723950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2684793843456894777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 3
+--- !u!54 &3237874957774816020
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2684793843456894777}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2696112201710034872
 GameObject:
   m_ObjectHideFlags: 0
@@ -6796,7 +6892,7 @@ GameObject:
   - component: {fileID: 2056704213759623466}
   - component: {fileID: 5576662537199521053}
   - component: {fileID: 3552317016265798355}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: hammer03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7118,7 +7214,8 @@ GameObject:
   - component: {fileID: 6375677072404303219}
   - component: {fileID: 5278586161225298143}
   - component: {fileID: 1112787729884714819}
-  m_Layer: 7
+  - component: {fileID: 1652350272688793289}
+  m_Layer: 0
   m_Name: hammer06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7239,12 +7336,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.7285769, y: 2.8495631, z: 0.16672117}
   m_Center: {x: 0.0000000020651514, y: -0.8272798, z: -0.0034687303}
+--- !u!114 &1652350272688793289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178324007503896267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 2
 --- !u!1 &3246115105731431735
 GameObject:
   m_ObjectHideFlags: 0
@@ -7441,7 +7551,8 @@ GameObject:
   - component: {fileID: 1295093726072122824}
   - component: {fileID: 1298124602469776985}
   - component: {fileID: 7314064753851831729}
-  m_Layer: 7
+  - component: {fileID: 6097440603660623329}
+  m_Layer: 0
   m_Name: handgun_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7563,12 +7674,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.5686996, y: 0.1345471, z: 0.059180725}
   m_Center: {x: 0.08294551, y: -0.060683507, z: -0.00067258306}
+--- !u!114 &6097440603660623329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3593415727530706845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 6
 --- !u!1 &3727121144595014246
 GameObject:
   m_ObjectHideFlags: 0
@@ -7582,7 +7706,7 @@ GameObject:
   - component: {fileID: 3548496404467785024}
   - component: {fileID: 9013163879762950274}
   - component: {fileID: 4362368430575862709}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7722,7 +7846,7 @@ GameObject:
   - component: {fileID: 3450622955720968533}
   - component: {fileID: 1314465079145397856}
   - component: {fileID: 5139665334414487549}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: hammer04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7988,7 +8112,7 @@ GameObject:
   - component: {fileID: 3655819500312267819}
   - component: {fileID: 1728050929072548050}
   - component: {fileID: 5182123293455137583}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: hammer02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8342,7 +8466,7 @@ GameObject:
   - component: {fileID: 7959620595746278765}
   - component: {fileID: 6899111976503562917}
   - component: {fileID: 9047580003768152234}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: axe01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8669,7 +8793,8 @@ GameObject:
   - component: {fileID: 7706687041034426206}
   - component: {fileID: 1253376925846502048}
   - component: {fileID: 1584240224063939473}
-  m_Layer: 7
+  - component: {fileID: 2192960195384051743}
+  m_Layer: 0
   m_Name: axe05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8790,7 +8915,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -8798,6 +8923,19 @@ CapsuleCollider:
   m_Height: 1.938932
   m_Direction: 1
   m_Center: {x: 0.11316442, y: -0.19110473, z: 0.0013573564}
+--- !u!114 &2192960195384051743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461313925046764461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 4
 --- !u!1 &4472478154234398321
 GameObject:
   m_ObjectHideFlags: 0
@@ -8991,7 +9129,8 @@ GameObject:
   - component: {fileID: 7167094018557749083}
   - component: {fileID: 936217614014940122}
   - component: {fileID: 9035234893133096523}
-  m_Layer: 7
+  - component: {fileID: 7856524932885418899}
+  m_Layer: 0
   m_Name: drill (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9070,6 +9209,19 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7856524932885418899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631801129904088244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 12
 --- !u!1 &4691884907117332242
 GameObject:
   m_ObjectHideFlags: 0
@@ -9115,7 +9267,7 @@ GameObject:
   - component: {fileID: 8588422618379829364}
   - component: {fileID: 4110897809643694780}
   - component: {fileID: 8493288419415502974}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9401,7 +9553,7 @@ GameObject:
   - component: {fileID: 8716976069506955432}
   - component: {fileID: 406113942377375351}
   - component: {fileID: 2749335727463823763}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9812,7 +9964,8 @@ GameObject:
   - component: {fileID: 9209970484494505634}
   - component: {fileID: 8449876124771473101}
   - component: {fileID: 1276975606526491551}
-  m_Layer: 7
+  - component: {fileID: 1562607357025770045}
+  m_Layer: 0
   m_Name: minigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9934,7 +10087,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -9942,6 +10095,19 @@ CapsuleCollider:
   m_Height: 1.522445
   m_Direction: 2
   m_Center: {x: 0.000000017560023, y: -0.0055063795, z: 0.3997001}
+--- !u!114 &1562607357025770045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372960138108096527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 7
 --- !u!1 &5389498646680564475
 GameObject:
   m_ObjectHideFlags: 0
@@ -10546,7 +10712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3576798125177764841}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: fx_handgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11616,7 +11782,8 @@ GameObject:
   - component: {fileID: 8687631723096354568}
   - component: {fileID: 4342746123161255794}
   - component: {fileID: 7606146990767566517}
-  m_Layer: 7
+  - component: {fileID: 255382682631790667}
+  m_Layer: 0
   m_Name: candy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11738,7 +11905,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -11746,6 +11913,19 @@ CapsuleCollider:
   m_Height: 2.1053228
   m_Direction: 1
   m_Center: {x: 0.010000063, y: -0.46120575, z: 0.0030396744}
+--- !u!114 &255382682631790667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6713909764668644292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 11
 --- !u!1 &6752626431267602666
 GameObject:
   m_ObjectHideFlags: 0
@@ -11790,7 +11970,7 @@ GameObject:
   - component: {fileID: 9001457861494899227}
   - component: {fileID: 7964394148062877483}
   - component: {fileID: 7955246578055539856}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12136,7 +12316,7 @@ GameObject:
   - component: {fileID: 7179267264252619712}
   - component: {fileID: 285018371063170244}
   - component: {fileID: 2733475838116195996}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: axe02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12340,7 +12520,7 @@ GameObject:
   - component: {fileID: 4925770958566523910}
   - component: {fileID: 9222376765639860041}
   - component: {fileID: 5103265767330625221}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: sword04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12768,7 +12948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac513b128a7b874094eaf3d8931a2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimEvent
-  character: {fileID: 4311280115995774276}
+  entity: {fileID: 4311280115995774276}
   duration: 0.2
 --- !u!1 &7665461402799358308
 GameObject:
@@ -12783,7 +12963,7 @@ GameObject:
   - component: {fileID: 3724000661655461095}
   - component: {fileID: 7217066593320741592}
   - component: {fileID: 8512298448212481105}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: axe03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13078,7 +13258,7 @@ GameObject:
   - component: {fileID: 8101945745582339265}
   - component: {fileID: 485062478356546135}
   - component: {fileID: 222221554895031244}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: dagger04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13343,7 +13523,8 @@ GameObject:
   - component: {fileID: 5880292676489836654}
   - component: {fileID: 9030572541311481268}
   - component: {fileID: 6710543128762278441}
-  m_Layer: 7
+  - component: {fileID: 6882969735259946499}
+  m_Layer: 0
   m_Name: dagger05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13464,7 +13645,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -13472,6 +13653,19 @@ CapsuleCollider:
   m_Height: 0.8167387
   m_Direction: 1
   m_Center: {x: -0.045730047, y: -0.06449855, z: 0.00734231}
+--- !u!114 &6882969735259946499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8421074151578754084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 5
 --- !u!1 &8458940612254597622
 GameObject:
   m_ObjectHideFlags: 0
@@ -13621,7 +13815,7 @@ GameObject:
   - component: {fileID: 9146332753143757433}
   - component: {fileID: 8290431207200752416}
   - component: {fileID: 2884596966690125410}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: dagger03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14183,7 +14377,8 @@ GameObject:
   - component: {fileID: 796196664018060613}
   - component: {fileID: 6730207591246110477}
   - component: {fileID: 755297089081616724}
-  m_Layer: 7
+  - component: {fileID: 8869547976270931081}
+  m_Layer: 0
   m_Name: shotgun_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14305,12 +14500,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.1709316, y: 0.12569948, z: 0.11615354}
   m_Center: {x: 0.19449075, y: -0.08433178, z: -0.00000041367824}
+--- !u!114 &8869547976270931081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684085468963796313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151cb70cf68e34488a6e226315edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemWeapon
+  weaponType: 9
 --- !u!1 &8710260447776739603
 GameObject:
   m_ObjectHideFlags: 0
@@ -14320,7 +14528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2096252694967407357}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: fx_handgun2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

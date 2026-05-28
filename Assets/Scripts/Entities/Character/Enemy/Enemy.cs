@@ -20,14 +20,10 @@ public class Enemy : Character
         EnablePhysics(false);
     }
 
-    private void Update()
-    {
-
-    }
-
     public void Attack(Entity target)
     {
         currentState = CharacterState.Attack;
+
         currentTarget = target;
 
         if(isAnimAttackSingle == true)

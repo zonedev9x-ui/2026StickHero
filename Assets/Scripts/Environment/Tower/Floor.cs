@@ -76,14 +76,26 @@ public class Floor : MonoBehaviour
     }
 
     public Vector3 SetPlayerPos()
-    {
-        if (entities.Count <= 1)
+    {   
+        if(entities.Count <= 0)
         {
             return spawnPos[1].position;
+        }
+        else if (entities.Count == 1)
+        {
+            if (entities[entities.Count - 1] is Enemy)
+            {
+                return spawnPos[1].position;
+            }
+            else
+            {
+                return spawnPos[spawnPos.Count - 1 - entities.Count].position;
+            }
         }
         else
         {
             return spawnPos[spawnPos.Count - 1 - entities.Count].position;
+
         }
     }
 
@@ -95,8 +107,8 @@ public class Floor : MonoBehaviour
     }
 
     public Entity GetNextEntity()
-    {   
-        if(entities.Count <= 0 && currentEntityIndex > entities.Count - 1) return null;
+    {
+        if (entities.Count <= 0 || currentEntityIndex >= entities.Count) return null;
 
         return entities[currentEntityIndex++];
     }

@@ -152,7 +152,6 @@ public class LevelController : Singleton<LevelController>
         {
             if (floor == towers[currentTowerIndex].floors[i])
             {
-                Debug.Log("Floor is in current tower");
                 return true;
             }
         }
