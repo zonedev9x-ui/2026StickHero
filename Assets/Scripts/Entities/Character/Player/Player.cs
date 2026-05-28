@@ -97,6 +97,9 @@ public class Player : Character
         }
         else if (currentTarget is Trap)
         {
+            animator.SetFloat(ConstantData.ANIM_BLEND_DAMAGE, ConstantData.ANIM_DAMAGE_STRAIGHT);
+            PlayAnim(ConstantData.ANIM_TRIGGER_DAMAGE);
+
             Trap currentTrap = (Trap)currentTarget;
             currentTrap.Attack();
             UpdateStrengthScore(currentTrap.strengthScore);
