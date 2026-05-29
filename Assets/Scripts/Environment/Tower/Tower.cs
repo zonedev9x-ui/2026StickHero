@@ -34,18 +34,6 @@ public class Tower : MonoBehaviour
         }
     }
 
-    //public bool IsAllFloorEmpty()
-    //{
-    //    for (int i = 0; i < floors.Count; i++)
-    //    {
-    //        if (floors[i].isFloorEmpty == true)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
-
     public void BreakWalls()
     {
         summit.BreakWalls();
@@ -54,5 +42,18 @@ public class Tower : MonoBehaviour
         {
             floors[i].BreakWalls();
         }
+    }
+
+    public bool IsTowerCleaned()
+    {
+        for(int i = 0; i < floors.Count; i++)
+        {
+            if (floors[i].currentEntityIndex < floors[i].entities.Count)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

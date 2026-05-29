@@ -35,4 +35,7 @@ public class ConstantData
     public const float ANIM_DAMAGE_STRAIGHT = 1;
 
     public const string ANIM_TRAP_BEAR_IS_ACTIVE = "isActive";
+
+    public const string ANIM_BLEND_BOSS_COMBO = "bossComboIndex";
+    public const float ANIM_BOSS_COMBO_EMPTY = 0;
 }

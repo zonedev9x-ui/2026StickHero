@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelIndex: 0
   bossEnemyData:
-    strengthScore: 0
-    enemyName: 0
+    ScoreType: 0
+    strengthScore: 100
+    enemyName: 35
   playerData:
     strengthScore: 10
   towerDatas:
@@ -39,7 +40,7 @@ MonoBehaviour:
         enemyName: 0
         itemSuportType: 0
         weaponType: 0
-        trapType: 2
+        trapType: 1
       - strengthType: 0
         strengthScore: 15
         enemyName: 1
@@ -48,7 +49,7 @@ MonoBehaviour:
         trapType: 0
     - slotDatas:
       - strengthType: 1
-        strengthScore: 10
+        strengthScore: 21
         enemyName: 0
         itemSuportType: 0
         weaponType: 4

@@ -34,9 +34,9 @@ public class EntityAnimEvent : MonoBehaviour
     {
         if (entity.currentTarget != null)
         {
-            if (entity.currentTarget is Enemy)
+            if (entity.currentTarget is Character)
             {
-                Enemy c = entity.currentTarget as Enemy;
+                Character c = entity.currentTarget as Character;
                 if (c != null)
                 {
                     if (entity is Player)
@@ -55,6 +55,17 @@ public class EntityAnimEvent : MonoBehaviour
     {
         Character c = entity as Character;
         c.currentState = state;
+
+        if(c.currentState == CharacterState.Idle)
+        {
+            c.UpdateIdle();
+        }
+    }
+
+    public void OnChangeStateAttackBoss()
+    {
+        Player player = entity as Player;
+        player.SetCombatBossEnemy();
     }
 
     public void ScaleTo(float target)
@@ -91,7 +102,7 @@ public class EntityAnimEvent : MonoBehaviour
     {
         entity.GetComponent<Collider>().isTrigger = false;
 
-        if(entity is Player)
+        if (entity is Player)
         {
             Player player = entity as Player;
             player.currentTower.BreakWalls();

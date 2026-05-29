@@ -255,8 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc9c17e8335eaf43b9e90fcdb6bb7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraSmooth
-  moveSpeed: 5
-  distanceTowers: []
+  moveSpeed: 1
+  listTargetPosX: []
 --- !u!1 &1291462880
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,10 +413,12 @@ MonoBehaviour:
   - {fileID: 2276638472403520625, guid: 6b778faa58bf67a449128ed0ec4ca190, type: 3}
   - {fileID: 908228388419828267, guid: eccfe4bd00c7f0441a6174396d236d26, type: 3}
   - {fileID: 3829899442450192536, guid: 20f4563bc7a68fb468cad1a9845f2988, type: 3}
+  bossPrefabs:
+  - {fileID: 3309123849126709269, guid: b60e1c62292810f48bfcf63c768e76d1, type: 3}
   tranStart: {fileID: 549818723}
   towerSpacingX: 10
+  bossSpacingX: 11
   floorSpacingY: 4.5
-  towers: []
 --- !u!4 &1349663320
 Transform:
   m_ObjectHideFlags: 0

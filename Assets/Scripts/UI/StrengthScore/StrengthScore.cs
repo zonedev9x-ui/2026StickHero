@@ -64,12 +64,10 @@ public class StrengthScore : MonoBehaviour
 
     private IEnumerator IECountScore()
     {
-        WaitForSeconds delay = new WaitForSeconds(0.05f);
+        WaitForSeconds delay = new WaitForSeconds(0.01f);
 
         while (uiScore != score)
         {
-            Debug.Log("IECountScore");
-
             if (uiScore < score)
                 uiScore++;
             else

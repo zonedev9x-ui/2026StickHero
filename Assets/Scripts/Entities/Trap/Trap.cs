@@ -12,6 +12,6 @@ public class Trap : Entity
 
     public virtual void Attack()
     {
-      
+        EnableStrengthScore(false);
     }
 }

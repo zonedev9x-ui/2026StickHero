@@ -28,6 +28,8 @@ public class PlayerDrag : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (LevelController.Instance.cameraSmooth.IsMoving) return;
+
         if (player.currentState != CharacterState.Idle) return;
 
         offset = transform.position - mainCamera.ScreenToWorldPoint(Input.mousePosition);

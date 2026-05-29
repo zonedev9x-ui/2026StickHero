@@ -26,21 +26,6 @@ public class Floor : MonoBehaviour
         SortObjects();
     }
 
-    //private void CreateEnemy()
-    //{
-    //    if (enemies.Count <= 0) return;
-
-    //    int startIndex = spawnPos.Count - enemies.Count;
-
-    //    for (int i = 0; i < enemies.Count; i++)
-    //    {
-    //        int spawnIndex = startIndex + i;
-    //        enemies[i].transform.position = spawnPos[spawnIndex].position;
-
-    //        Debug.Log("Enemy " + i + " spawn tai vi tri: " + spawnIndex);
-    //    }
-    //}
-
     private void SortObjects()
     {
         if (entities.Count <= 0) return;
@@ -108,9 +93,11 @@ public class Floor : MonoBehaviour
 
     public Entity GetNextEntity()
     {
-        if (entities.Count <= 0 || currentEntityIndex >= entities.Count) return null;
+        currentEntityIndex++;
 
-        return entities[currentEntityIndex++];
+        if (entities.Count <= 0 || currentEntityIndex > entities.Count - 1) return null;
+
+        return entities[currentEntityIndex];
     }
 
     public bool IsLastEnemyInFloor()
@@ -133,5 +120,12 @@ public class Floor : MonoBehaviour
         {
             breakWalls[i].gameObject.SetActive(true);
         }
+    }
+
+    public bool IsEntityCleaned()
+    {
+        if (entities.Count <= 0 || currentEntityIndex > entities.Count - 1) return true;
+
+        return false;
     }
 }

@@ -57,6 +57,13 @@ public class Character : Entity
 
     #endregion
 
+    public void ChangeState(CharacterState state)
+    {
+        currentState = state;
+    }
+
+    public virtual void UpdateIdle() { }
+
     public virtual void TakeHit(int direction)
     {
         animator.SetFloat(ConstantData.ANIM_BLEND_DAMAGE, direction);
@@ -120,11 +127,6 @@ public class Character : Entity
             case StrengthScoreType.Multiply:
                 this.strengthScore.MultiplyStrengthScore(targetStrengthScore.score);
                 break;
-        }
-
-        if (strengthScore.score <= 0)
-        {
-            Die();
         }
     }
 }

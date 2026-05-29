@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelController : Singleton<LevelController>
-{   
+{
     public CameraSmooth cameraSmooth;
     public Tower towerPrefab;
     public Floor floorPrefab;
@@ -12,21 +12,22 @@ public class LevelController : Singleton<LevelController>
     public Weapon weaponPrefab;
     public List<Trap> trapPrefabs;
     public List<Enemy> enemyPrefabs;
+    public List<Enemy> bossPrefabs;
 
     public Transform tranStart;
     public float towerSpacingX = 10f;
+    public float bossSpacingX = 15f;
     public float floorSpacingY = 3f;
 
-    public List<Tower> towers;
+    private List<Tower> towers = new List<Tower>();
+    private Player player;
+    private Enemy boss;
     private int currentTowerIndex = 1;
 
     private void Awake()
     {
         GameData.Load();
-
         LoadLevel(0);
-
-
     }
 
     #region Init Level
@@ -49,7 +50,7 @@ public class LevelController : Singleton<LevelController>
 
         towers.Add(playerTower);
 
-        Player player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
+        player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
         player.InitCharacterScore(levelData.playerData.strengthScore);
 
         for (int towerIndex = 0; towerIndex < levelData.towerDatas.Count; towerIndex++)
@@ -123,15 +124,38 @@ public class LevelController : Singleton<LevelController>
             towers.Add(newTower);
         }
 
-        List<float> distanceTowers = new List<float>();
+        List<float> listTargetPosX = new List<float>();
 
         for (int i = 1; i < towers.Count; i++)
         {
             float middeX = (towers[i].centerPoint.position.x + towers[i - 1].centerPoint.position.x) / 2f;
-            distanceTowers.Add(middeX);
+            listTargetPosX.Add(middeX);
         }
 
-        cameraSmooth.InitCamera(distanceTowers);
+        if (levelData.bossEnemyData != null)
+        {
+            BossData bossData = levelData.bossEnemyData;
+
+            for (int i = 0; i < bossPrefabs.Count; i++)
+            {
+                if (bossPrefabs[i].enemyName == bossData.enemyName)
+                {
+                    Vector3 spawnPos = tranStart.position + new Vector3(bossSpacingX * (towers.Count), 0f, 0f);
+                    boss = Instantiate(bossPrefabs[i], spawnPos, Quaternion.identity);
+                    boss.InitCharacterScore(bossData.strengthScore);
+
+                    float middeX = (towers[towers.Count - 1].centerPoint.position.x + boss.transform.position.x) / 2f;
+                    listTargetPosX.Add(middeX);
+                }
+            }
+        }
+
+        cameraSmooth.InitCamera(listTargetPosX);
+
+        if (towers.Count > 2)
+        {
+            cameraSmooth.MoveFromStartToEnd();
+        }
     }
 
     private void ClearCurrentLevel()
@@ -141,9 +165,51 @@ public class LevelController : Singleton<LevelController>
 
     #endregion
 
+    #region Game Play
+
+    #endregion
+
     public Tower SetCurrentTower()
     {
         return towers[currentTowerIndex];
+    }
+
+    public void NextTower()
+    {
+        if (currentTowerIndex > towers.Count - 1) return;
+
+        currentTowerIndex++;
+    }
+
+    public Enemy SetBossInLevel()
+    {
+        return boss;
+    }
+
+    public bool IsAllEntityInCurrentTowerCleaned()
+    {
+        for (int i = 0; i < towers[currentTowerIndex].floors.Count; i++)
+        {
+            if (towers[currentTowerIndex].floors[i].IsEntityCleaned() == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public bool IsAllEntityInLastTowerCleaned()
+    {
+        for (int i = 0; i < towers[towers.Count - 1].floors.Count; i++)
+        {
+            if (towers[towers.Count - 1].floors[i].IsEntityCleaned() == true)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool IsFloorInCurrentTower(Floor floor)
@@ -157,5 +223,10 @@ public class LevelController : Singleton<LevelController>
         }
 
         return false;
+    }
+
+    public void MoveCameraToNextTower()
+    {
+        cameraSmooth.MoveNextDistanceTargets();
     }
 }

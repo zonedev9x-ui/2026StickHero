@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,17 +14,22 @@ public class Player : Character
         EnablePhysics(false);
     }
 
-    private void UpdateIdle()
+    public override void UpdateIdle()
     {
-        if (currentState == CharacterState.Idle)
+        currentState = CharacterState.Idle;
+
+        bool isAllEntityCurrentTowerCleaned = LevelController.Instance.IsAllEntityInCurrentTowerCleaned();
+        bool isAllEntityInLastTowerCleaned = LevelController.Instance.IsAllEntityInLastTowerCleaned();
+
+        if (isAllEntityCurrentTowerCleaned == true)
         {
-            //Tower currentTower = LevelController.Instance.SetCurrentTower();
-            //if (currentTower != null)
-            //{
-            //    currentState = CharacterState.ChangeSize;
-            //    PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
-            //    return;
-            //}
+            LevelController.Instance.MoveCameraToNextTower();
+            LevelController.Instance.NextTower();
+        }
+
+        if (isAllEntityInLastTowerCleaned == true)
+        {
+            UpdateChangeSize();
         }
     }
 
@@ -32,14 +37,7 @@ public class Player : Character
     {
         if (currentState == CharacterState.ChangeSize)
         {
-            //timer += Time.deltaTime;
-            //float t = timer / duration;
-            //transform.localScale = Vector3.Lerp(startScale, targetScale, t);
-
-            //if(t >= duration)
-            //{
-
-            //}
+            PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
         }
     }
 
@@ -67,6 +65,31 @@ public class Player : Character
         EntityInteraction();
     }
 
+    public void SetCombatBossEnemy()
+    {
+        currentState = CharacterState.Attack;
+
+        currentTarget = LevelController.Instance.SetBossInLevel();
+
+        EntityInteraction();
+    }
+
+    public IEnumerator IEAttackBoss()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        if (currentTarget != null)
+        {
+            currentTarget = null;
+        }
+
+        currentTarget = LevelController.Instance.SetBossInLevel();
+        if (currentTarget != null)
+        {
+            SetCombatTarget(currentTarget, null);
+        }
+    }
+
     private IEnumerator IEntityInteraction()
     {
         yield return new WaitForSeconds(0.5f);
@@ -78,7 +101,7 @@ public class Player : Character
         }
     }
 
-    public void EntityInteraction()
+    private void EntityInteraction()
     {
         if (currentTarget is Enemy)
         {
@@ -104,9 +127,19 @@ public class Player : Character
             currentTrap.Attack();
             UpdateStrengthScore(currentTrap.strengthScore);
 
+            if (strengthScore.score <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                UpdateIdle();
+            }
         }
-        else
-        {   
+        else if(currentTarget is ItemSupport)
+        {
+            PlayAnim(ConstantData.ANIM_TRIGGER_GET_ITEM);
+
             currentTarget.gameObject.SetActive(false);
             UpdateStrengthScore(currentTarget.strengthScore);
         }
@@ -130,6 +163,18 @@ public class Player : Character
                 }
 
                 PlayAnim(ConstantData.ANIM_TRIGGER_ATTACK);
+            }
+            else
+            {
+                currentEnemy.Attack(this);
+            }
+        }
+        else if (currentEnemy.enemyType == EnemyType.Boss)
+        {
+            if (strengthScore.score > currentEnemy.strengthScore.score)
+            {
+                animator.SetFloat(ConstantData.ANIM_BLEND_BOSS_COMBO, 0);
+                PlayAnim(ConstantData.ANIM_TRIGGER_BOSS_COMBO);
             }
             else
             {

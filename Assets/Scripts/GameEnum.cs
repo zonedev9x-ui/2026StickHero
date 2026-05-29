@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public enum CharacterState
-{
+{   
     Idle,
     Moving,
     Attack,
