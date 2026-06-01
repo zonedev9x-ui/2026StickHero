@@ -9,6 +9,7 @@ public class Tower : MonoBehaviour
     public Transform centerPoint;
     public Summit summit;
     public List<Floor> floors;
+    public int floorCount = 0;
 
     public void Start()
     {
@@ -45,12 +46,14 @@ public class Tower : MonoBehaviour
         if (summit != null)
         {
             summit.gameObject.SetActive(true);
-            summit.transform.localPosition = new Vector3(0f, floorSpacingY * floors.Count, 0f);
+            summit.transform.localPosition = new Vector3(0f, floorSpacingY * floorCount, 0f);
         }
 
-        for (int i = 0; i < floors.Count; i++)
+        for (int i = 0; i < floorCount; i++)
         {
-            float heightY = floorSpacingY * (floors.Count - 1 - i);
+            float heightY = floorSpacingY * (floorCount - 1 - i);
+
+            floors[i].transform.localScale = Vector3.one;
             Vector3 floorSpawnPos = transform.position + new Vector3(0f, heightY, 0f);
             floors[i].transform.position = floorSpawnPos;
         }

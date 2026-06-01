@@ -120,6 +120,16 @@ public class Floor : MonoBehaviour
         transform.DOMoveY(transform.position.y - posY, 0.1f);
     }
 
+    public void MoveFloorUp(float posY)
+    {
+        transform.DOMoveY(transform.position.y + posY, 0.1f);
+    }
+
+    public void ScaleFloorY()
+    {
+        transform.DOScaleY(1f, 0.1f);
+    }
+
     public void BreakWalls()
     {
         for (int i = 0; i < walls.Count; i++)

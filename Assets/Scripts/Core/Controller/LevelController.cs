@@ -40,7 +40,7 @@ public class LevelController : Singleton<LevelController>
         Tower playerTower = Instantiate(towerPrefab, tranStart.position, Quaternion.identity);
         Floor playerFloor = Instantiate(floorPrefab, playerTower.transform.position, Quaternion.identity, playerTower.transform);
         playerTower.floors.Add(playerFloor);
-
+        playerTower.floorCount++;
         towers.Add(playerTower);
 
         player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
@@ -51,20 +51,15 @@ public class LevelController : Singleton<LevelController>
             Vector3 spawnPos = tranStart.position + new Vector3(towerSpacingX * (towerIndex + 1), 0f, 0f);
             Tower newTower = Instantiate(towerPrefab, spawnPos, Quaternion.identity);
 
-            //if (newTower.summit != null)
-            //{
-            //    newTower.summit.gameObject.SetActive(true);
-            //    newTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY * levelData.towerDatas[towerIndex].floorDatas.Count, 0f);
-            //}
-
             List<FloorData> floorDatas = levelData.towerDatas[towerIndex].floorDatas;
 
             for (int floorIndex = 0; floorIndex < floorDatas.Count; floorIndex++)
             {
-                //float heightY = floorSpacingY * (floorDatas.Count - 1 - floorIndex);
-                //Vector3 floorSpawnPos = newTower.transform.position + new Vector3(0f, heightY, 0f);
+                //Floor newFloor = Instantiate(floorPrefab, newTower.transform.position, Quaternion.identity, newTower.transform);
 
-                Floor newFloor = Instantiate(floorPrefab, newTower.transform.position, Quaternion.identity, newTower.transform);
+                Floor newFloor = newTower.floors[floorIndex];
+
+                newFloor.gameObject.SetActive(true);
 
                 List<SlotData> slotDatas = floorDatas[floorIndex].slotDatas;
 
@@ -80,7 +75,6 @@ public class LevelController : Singleton<LevelController>
 
                                 Enemy newEnemy = Instantiate(enemyPrefabs[enemyIndex], spawnPoint.position, Quaternion.identity, newFloor.transform);
                                 newEnemy.InitCharacterScore(slotDatas[slotIndex].strengthScore);
-
                                 newFloor.entities.Add(newEnemy);
                             }
                         }
@@ -111,7 +105,9 @@ public class LevelController : Singleton<LevelController>
                     }
                 }
 
-                newTower.floors.Add(newFloor);
+                newTower.floorCount++;
+
+                //newTower.floors.Add(newFloor);
             }
 
             towers.Add(newTower);
