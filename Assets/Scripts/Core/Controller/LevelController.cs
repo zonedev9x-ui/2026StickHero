@@ -17,7 +17,6 @@ public class LevelController : Singleton<LevelController>
     public Transform tranStart;
     public float towerSpacingX = 10f;
     public float bossSpacingX = 15f;
-    public float floorSpacingY = 3f;
 
     private List<Tower> towers = new List<Tower>();
     private Player player;
@@ -42,12 +41,6 @@ public class LevelController : Singleton<LevelController>
         Floor playerFloor = Instantiate(floorPrefab, playerTower.transform.position, Quaternion.identity, playerTower.transform);
         playerTower.floors.Add(playerFloor);
 
-        if (playerTower.summit != null)
-        {
-            playerTower.summit.gameObject.SetActive(true);
-            playerTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY, 0f);
-        }
-
         towers.Add(playerTower);
 
         player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
@@ -58,20 +51,20 @@ public class LevelController : Singleton<LevelController>
             Vector3 spawnPos = tranStart.position + new Vector3(towerSpacingX * (towerIndex + 1), 0f, 0f);
             Tower newTower = Instantiate(towerPrefab, spawnPos, Quaternion.identity);
 
-            if (newTower.summit != null)
-            {
-                newTower.summit.gameObject.SetActive(true);
-                newTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY * levelData.towerDatas[towerIndex].floorDatas.Count, 0f);
-            }
+            //if (newTower.summit != null)
+            //{
+            //    newTower.summit.gameObject.SetActive(true);
+            //    newTower.summit.transform.localPosition = new Vector3(0f, floorSpacingY * levelData.towerDatas[towerIndex].floorDatas.Count, 0f);
+            //}
 
             List<FloorData> floorDatas = levelData.towerDatas[towerIndex].floorDatas;
 
             for (int floorIndex = 0; floorIndex < floorDatas.Count; floorIndex++)
             {
-                float heightY = floorSpacingY * (floorDatas.Count - 1 - floorIndex);
-                Vector3 floorSpawnPos = newTower.transform.position + new Vector3(0f, heightY, 0f);
+                //float heightY = floorSpacingY * (floorDatas.Count - 1 - floorIndex);
+                //Vector3 floorSpawnPos = newTower.transform.position + new Vector3(0f, heightY, 0f);
 
-                Floor newFloor = Instantiate(floorPrefab, floorSpawnPos, Quaternion.identity, newTower.transform);
+                Floor newFloor = Instantiate(floorPrefab, newTower.transform.position, Quaternion.identity, newTower.transform);
 
                 List<SlotData> slotDatas = floorDatas[floorIndex].slotDatas;
 
@@ -199,19 +192,6 @@ public class LevelController : Singleton<LevelController>
         return true;
     }
 
-    public bool IsAllEntityInLastTowerCleaned()
-    {
-        for (int i = 0; i < towers[towers.Count - 1].floors.Count; i++)
-        {
-            if (towers[towers.Count - 1].floors[i].IsEntityCleaned() == true)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public bool IsFloorInCurrentTower(Floor floor)
     {
         for (int i = 0; i < towers[currentTowerIndex].floors.Count; i++)
@@ -228,5 +208,10 @@ public class LevelController : Singleton<LevelController>
     public void MoveCameraToNextTower()
     {
         cameraSmooth.MoveNextDistanceTargets();
+    }
+
+    public bool IsLastTower()
+    {
+        return currentTowerIndex >= towers.Count - 1;
     }
 }

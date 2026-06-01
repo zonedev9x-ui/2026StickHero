@@ -16,5 +16,7 @@ public class TrapSaw : Trap
         base.Attack();
 
         transform.DOScale(Vector3.zero, 0.5f);
+
+        SetActive(false);
     }
 }

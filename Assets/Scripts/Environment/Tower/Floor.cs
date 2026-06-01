@@ -1,3 +1,4 @@
+using DG.Tweening;
 using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,6 +110,16 @@ public class Floor : MonoBehaviour
         return false;
     }
 
+    public void HideFloor()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void MoveFloorDown(float posY)
+    {
+        transform.DOMoveY(transform.position.y - posY, 0.1f);
+    }
+
     public void BreakWalls()
     {
         for (int i = 0; i < walls.Count; i++)
@@ -124,8 +135,14 @@ public class Floor : MonoBehaviour
 
     public bool IsEntityCleaned()
     {
-        if (entities.Count <= 0 || currentEntityIndex > entities.Count - 1) return true;
+        for(int i = 0; i < entities.Count; i++)
+        {
+            if (entities[i].IsActive() == true)
+            {
+                return false;
+            }
+        }
 
-        return false;
+        return true;
     }
 }

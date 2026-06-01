@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : Character
 {
     public List<ItemWeapon> itemWeapons;
-    private Coroutine interactCoroutine;
+    private Coroutine currentCoroutine;
 
     protected override void Start()
     {
@@ -19,26 +19,28 @@ public class Player : Character
         currentState = CharacterState.Idle;
 
         bool isAllEntityCurrentTowerCleaned = LevelController.Instance.IsAllEntityInCurrentTowerCleaned();
-        bool isAllEntityInLastTowerCleaned = LevelController.Instance.IsAllEntityInLastTowerCleaned();
 
         if (isAllEntityCurrentTowerCleaned == true)
         {
+            if (LevelController.Instance.IsLastTower() && LevelController.Instance.SetBossInLevel() != null)
+            {
+                LevelController.Instance.cameraSmooth.MoveLastTargetAndScale();
+                if (currentCoroutine != null) currentCoroutine = null;
+
+                currentCoroutine = StartCoroutine(IEUpdateChangeSize());
+            }
+
             LevelController.Instance.MoveCameraToNextTower();
             LevelController.Instance.NextTower();
         }
-
-        if (isAllEntityInLastTowerCleaned == true)
-        {
-            UpdateChangeSize();
-        }
     }
 
-    private void UpdateChangeSize()
+    private IEnumerator IEUpdateChangeSize()
     {
-        if (currentState == CharacterState.ChangeSize)
-        {
-            PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
-        }
+        yield return new WaitForSeconds(0.5f);
+
+        currentState = CharacterState.ChangeSize;
+        PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
     }
 
     public void EnablePhysicsAndColliders(bool isEnabled)
@@ -69,6 +71,11 @@ public class Player : Character
     {
         currentState = CharacterState.Attack;
 
+        if (currentTarget != null)
+        {
+            currentTarget = null;
+        }
+
         currentTarget = LevelController.Instance.SetBossInLevel();
 
         EntityInteraction();
@@ -84,6 +91,7 @@ public class Player : Character
         }
 
         currentTarget = LevelController.Instance.SetBossInLevel();
+
         if (currentTarget != null)
         {
             SetCombatTarget(currentTarget, null);
@@ -105,18 +113,19 @@ public class Player : Character
     {
         if (currentTarget is Enemy)
         {
-            if (interactCoroutine != null)
+            if (currentCoroutine != null)
             {
-                StopCoroutine(interactCoroutine);
+                StopCoroutine(currentCoroutine);
             }
 
-            interactCoroutine = StartCoroutine(IEntityInteraction());
+            currentCoroutine = StartCoroutine(IEntityInteraction());
         }
         else if (currentTarget is Weapon)
         {
             Weapon currentWeapon = (Weapon)currentTarget;
             UpdateStrengthScore(currentWeapon.strengthScore);
             EquipWeapon(currentWeapon);
+            currentWeapon.SetActive(false);
         }
         else if (currentTarget is Trap)
         {
@@ -136,11 +145,12 @@ public class Player : Character
                 UpdateIdle();
             }
         }
-        else if(currentTarget is ItemSupport)
+        else if (currentTarget is ItemSupport)
         {
             PlayAnim(ConstantData.ANIM_TRIGGER_GET_ITEM);
 
             currentTarget.gameObject.SetActive(false);
+            currentTarget.SetActive(false);
             UpdateStrengthScore(currentTarget.strengthScore);
         }
     }

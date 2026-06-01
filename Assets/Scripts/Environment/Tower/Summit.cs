@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,5 +15,15 @@ public class Summit : MonoBehaviour
         {
             breakTopWalls[i].gameObject.SetActive(true);
         }
+    }
+
+    public void MoveSummitDown(float posY)
+    {
+        transform.DOMoveY(transform.position.y - posY, 0.1f);
+    }
+
+    public void MoveSummitUp(float posY)
+    {
+        transform.DOMoveY(transform.position.y + posY, 0.1f);
     }
 }

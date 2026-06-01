@@ -260,13 +260,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84ca50a1b47c8c4e91263e7bb552d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  strengthScore: {fileID: 0}
+  currentTarget: {fileID: 0}
   currentState: 0
   weaponType: 0
   animator: {fileID: 95401747828799619}
-  strengthScore: {fileID: 0}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
-  currentTarget: {fileID: 0}
   enemyType: 1
   enemyName: 0
   isAnimAttackSingle: 0
@@ -483,17 +483,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8187dfc999b87448c710af3661d690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelController
+  cameraSmooth: {fileID: 0}
   towerPrefab: {fileID: 0}
   floorPrefab: {fileID: 0}
   playerPrefab: {fileID: 0}
   itemSupportPrefab: {fileID: 0}
   weaponPrefab: {fileID: 0}
-  trapPrefab: {fileID: 0}
+  trapPrefabs: []
   enemyPrefabs: []
+  bossPrefabs: []
   tranStart: {fileID: 0}
   towerSpacingX: 3
+  bossSpacingX: 15
   floorSpacingY: 3
-  towers: []
 --- !u!1 &1269023319
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3050893267465408781, guid: 9edda51a7b85c8d46ac04bb120bdeecd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7371089869880297364, guid: 9edda51a7b85c8d46ac04bb120bdeecd, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -26058,13 +26060,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84ca50a1b47c8c4e91263e7bb552d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  strengthScore: {fileID: 0}
+  currentTarget: {fileID: 0}
   currentState: 0
   weaponType: 0
   animator: {fileID: 0}
-  strengthScore: {fileID: 0}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
-  currentTarget: {fileID: 0}
   enemyType: 0
   enemyName: 0
   isAnimAttackSingle: 0
@@ -40900,13 +40902,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84ca50a1b47c8c4e91263e7bb552d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  strengthScore: {fileID: 0}
+  currentTarget: {fileID: 0}
   currentState: 0
   weaponType: 0
   animator: {fileID: 95854178950160450}
-  strengthScore: {fileID: 0}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
-  currentTarget: {fileID: 0}
   enemyType: 1
   enemyName: 0
   isAnimAttackSingle: 0
@@ -64849,7 +64851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac513b128a7b874094eaf3d8931a2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimEvent
-  character: {fileID: 174979551}
+  entity: {fileID: 0}
   duration: 0.2
 --- !u!95 &95426477417954455
 Animator:
@@ -65215,7 +65217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac513b128a7b874094eaf3d8931a2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimEvent
-  character: {fileID: 4817248463134671}
+  entity: {fileID: 0}
   duration: 0.2
 --- !u!95 &95868066628699671
 Animator:
@@ -106471,7 +106473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac513b128a7b874094eaf3d8931a2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimEvent
-  character: {fileID: 3858044615847156721}
+  entity: {fileID: 0}
   duration: 0.2
 --- !u!4 &3858008866321374229
 Transform:
@@ -106624,13 +106626,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84ca50a1b47c8c4e91263e7bb552d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  strengthScore: {fileID: 0}
+  currentTarget: {fileID: 0}
   currentState: 0
   weaponType: 0
   animator: {fileID: 3807344376893375013}
-  strengthScore: {fileID: 0}
   currentTower: {fileID: 0}
   currentFloor: {fileID: 0}
-  currentTarget: {fileID: 0}
   enemyType: 1
   enemyName: 0
   isAnimAttackSingle: 0

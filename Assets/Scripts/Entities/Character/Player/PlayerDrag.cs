@@ -5,7 +5,8 @@ public class PlayerDrag : MonoBehaviour
     public Player player;
     private Camera mainCamera;
     private Vector3 offset;
-    private Vector3 oldParent;
+    private Vector3 oldParentPos;
+    private Transform oldParentTransform;
 
     private bool isDragging = false;
     private Entity currentTarget;
@@ -13,7 +14,11 @@ public class PlayerDrag : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        oldParent = transform.parent.position;
+        if (transform.parent != null)
+        {
+            oldParentPos = transform.parent.position;
+            oldParentTransform = transform.parent;
+        }
     }
 
     void Update()
@@ -36,7 +41,10 @@ public class PlayerDrag : MonoBehaviour
         player.PlayAnim(ConstantData.ANIM_TRIGGER_GRAB);
         isDragging = true;
 
-        oldParent = transform.parent.position;
+        oldParentTransform = transform.parent;
+        oldParentPos = oldParentTransform != null ? oldParentTransform.position : transform.position;
+        
+        transform.SetParent(null);
         
         player.currentFloor = null;
         player.currentTarget = null;
@@ -116,12 +124,21 @@ public class PlayerDrag : MonoBehaviour
         }
         else
         {
-            transform.position = oldParent;
+            transform.position = oldParentPos;
+            if (oldParentTransform != null && oldParentTransform.gameObject.activeSelf)
+            {
+                transform.SetParent(oldParentTransform);
+            }
+            else if (player.currentTower != null)
+            {
+                transform.SetParent(player.currentTower.transform);
+            }
         }
 
         if (player.currentTower != null)
         {
             player.currentTower.HideAllHighlight();
+            player.currentTower.SortSummitAndFloorsDown();
         }
 
         if (currentTarget != null)

@@ -6,11 +6,18 @@ using UnityEngine;
 public class CameraSmooth : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float orthoSize;
+    public float PosCamY;
 
     public List<float> listTargetPosX;
     private int currentDistance = 0;
 
     public bool IsMoving { get; private set; }
+
+    private void Start()
+    {
+
+    }
 
     public void InitCamera(List<float> distanceTowers)
     {
@@ -30,7 +37,24 @@ public class CameraSmooth : MonoBehaviour
             transform.DOMoveX(listTargetPosX[currentDistance], moveSpeed).OnComplete(() =>
             {
                 IsMoving = false;
-            });        
+            });
+        }
+    }
+
+    public void MoveLastTargetAndScale()
+    {
+        if (listTargetPosX == null || listTargetPosX.Count <= 0) return;
+
+        if (currentDistance < listTargetPosX.Count - 1)
+        {
+            currentDistance++;
+            IsMoving = true;
+
+            Camera.main.DOOrthoSize(orthoSize, moveSpeed);
+
+            Vector3 targetPos = new Vector3(listTargetPosX[currentDistance], transform.position.y - PosCamY, transform.position.z);
+
+            transform.DOMove(targetPos, moveSpeed).OnComplete(() =>{ IsMoving = false; });
         }
     }
 

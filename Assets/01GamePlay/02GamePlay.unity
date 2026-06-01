@@ -178,7 +178,7 @@ Transform:
   m_GameObject: {fileID: 876417735}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: -18}
+  m_LocalPosition: {x: 0, y: 12, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -227,7 +227,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 16
+  orthographic size: 16.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -256,6 +256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraSmooth
   moveSpeed: 1
+  orthoSize: 35
+  PosCamY: 2
   listTargetPosX: []
 --- !u!1 &1291462880
 GameObject:
@@ -417,8 +419,7 @@ MonoBehaviour:
   - {fileID: 3309123849126709269, guid: b60e1c62292810f48bfcf63c768e76d1, type: 3}
   tranStart: {fileID: 549818723}
   towerSpacingX: 10
-  bossSpacingX: 11
-  floorSpacingY: 4.5
+  bossSpacingX: 12
 --- !u!4 &1349663320
 Transform:
   m_ObjectHideFlags: 0

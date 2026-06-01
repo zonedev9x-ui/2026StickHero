@@ -74,6 +74,8 @@ public class Character : Entity
     {
         currentState = CharacterState.Dead;
 
+        isActive = false;
+
         EnableRagdoll(true);
         EnableStrengthScore(false);
     }
