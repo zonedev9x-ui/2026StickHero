@@ -6,7 +6,6 @@ using UnityEngine;
 public class Player : Character
 {
     public List<ItemWeapon> itemWeapons;
-    private Coroutine currentCoroutine;
 
     public override void UpdateIdle()
     {
