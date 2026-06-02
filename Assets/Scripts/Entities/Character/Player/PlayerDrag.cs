@@ -26,7 +26,7 @@ public class PlayerDrag : MonoBehaviour
         if (isDragging)
         {
             Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 3f;
+            mousePos.z = 2f;
             transform.position = mainCamera.ScreenToWorldPoint(mousePos) + offset;
         }
     }
@@ -138,7 +138,8 @@ public class PlayerDrag : MonoBehaviour
         if (player.currentTower != null)
         {
             player.currentTower.HideAllHighlight();
-            player.currentTower.SortSummitAndFloorsDown();
+            //player.currentTower.SortSummitAndFloorsDown();
+            LevelController.Instance.UpdateTowers();
         }
 
         if (currentTarget != null)

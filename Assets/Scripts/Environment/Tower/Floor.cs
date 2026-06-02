@@ -112,6 +112,7 @@ public class Floor : MonoBehaviour
 
     public void HideFloor()
     {
+        transform.DOScaleY(0f, 0.1f);
         gameObject.SetActive(false);
     }
 

@@ -1,4 +1,6 @@
+using System.Collections;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Character : Entity
@@ -8,17 +10,20 @@ public class Character : Entity
 
     public Animator animator;
 
+    public Rigidbody rb;
+
     [HideInInspector] public Tower currentTower;
 
     [HideInInspector] public Floor currentFloor;
 
     //public Entity currentTarget;
 
+    protected Coroutine currentCoroutine;
     protected string currentAnim;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-
+        EnablePhysics(false);
     }
 
     public void InitCharacterScore(int score)
@@ -70,14 +75,33 @@ public class Character : Entity
         PlayAnim(ConstantData.ANIM_TRIGGER_DAMAGE);
     }
 
-    public void Die()
+    public void Die(Entity entity)
     {
         currentState = CharacterState.Dead;
 
         isActive = false;
 
         EnableRagdoll(true);
+
+        Vector3 hitDir = (transform.position - entity.transform.position).normalized;
+
+        rb.AddForce(hitDir * 30f, ForceMode.Impulse);
+
         EnableStrengthScore(false);
+
+        if(currentCoroutine != null)
+        {
+            currentCoroutine = null;
+        }
+
+        currentCoroutine = StartCoroutine(IEHideCharacterDelay());
+    }
+
+    private IEnumerator IEHideCharacterDelay()
+    {
+        yield return new WaitForSeconds(8f);
+
+        gameObject.SetActive(false);
     }
 
     protected void ChangeAnimAttack(WeaponType newType)

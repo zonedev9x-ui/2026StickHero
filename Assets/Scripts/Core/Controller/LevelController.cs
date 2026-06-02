@@ -18,10 +18,10 @@ public class LevelController : Singleton<LevelController>
     public float towerSpacingX = 10f;
     public float bossSpacingX = 15f;
 
-    private List<Tower> towers = new List<Tower>();
+    public List<Tower> towers = new List<Tower>();
     private Player player;
     private Enemy boss;
-    private int currentTowerIndex = 1;
+    public int currentTowerIndex = 1;
 
     private void Awake()
     {
@@ -38,12 +38,10 @@ public class LevelController : Singleton<LevelController>
         LevelData levelData = GameData.staticGameData.staticLevelData.GetLevelDataIndex(levelIndex);
 
         Tower playerTower = Instantiate(towerPrefab, tranStart.position, Quaternion.identity);
-        Floor playerFloor = Instantiate(floorPrefab, playerTower.transform.position, Quaternion.identity, playerTower.transform);
-        playerTower.floors.Add(playerFloor);
-        playerTower.floorCount++;
+        playerTower.SortSummitAndFloors();
         towers.Add(playerTower);
 
-        player = Instantiate(playerPrefab, playerFloor.SetPlayerPos(), Quaternion.identity, playerFloor.transform);
+        player = Instantiate(playerPrefab, playerTower.floors[playerTower.floorCount].SetPlayerPos(), Quaternion.identity, playerTower.floors[playerTower.floorCount].transform);
         player.InitCharacterScore(levelData.playerData.strengthScore);
 
         for (int towerIndex = 0; towerIndex < levelData.towerDatas.Count; towerIndex++)
@@ -53,13 +51,13 @@ public class LevelController : Singleton<LevelController>
 
             List<FloorData> floorDatas = levelData.towerDatas[towerIndex].floorDatas;
 
+            newTower.floorCount = floorDatas.Count;
+            newTower.SortSummitAndFloors();
+
             for (int floorIndex = 0; floorIndex < floorDatas.Count; floorIndex++)
             {
                 //Floor newFloor = Instantiate(floorPrefab, newTower.transform.position, Quaternion.identity, newTower.transform);
-
                 Floor newFloor = newTower.floors[floorIndex];
-
-                newFloor.gameObject.SetActive(true);
 
                 List<SlotData> slotDatas = floorDatas[floorIndex].slotDatas;
 
@@ -104,10 +102,6 @@ public class LevelController : Singleton<LevelController>
                         }
                     }
                 }
-
-                newTower.floorCount++;
-
-                //newTower.floors.Add(newFloor);
             }
 
             towers.Add(newTower);
@@ -209,5 +203,28 @@ public class LevelController : Singleton<LevelController>
     public bool IsLastTower()
     {
         return currentTowerIndex >= towers.Count - 1;
+    }
+
+    public void UpdateTowers()
+    {
+        //towers[currentTowerIndex].SortSummitAndFloorsDown();
+
+        //if(currentTowerIndex - 1 >= 0)
+        //{
+        //    towers[currentTowerIndex - 1].SortSummitAndFloorsUp();
+        //}
+
+        Tower currentTower = towers[currentTowerIndex];
+        Tower prevTower = towers[currentTowerIndex - 1];
+
+        for (int i = 0; i < currentTower.floors.Count; i++)
+        {
+            if (currentTower.floors[i].gameObject.activeSelf == true && currentTower.floors[i].IsEntityCleaned() == true)
+            {
+                currentTower.SortSummitAndFloorsDown(i);
+
+                prevTower.SortSummitAndFloorsUp();
+            }
+        }
     }
 }

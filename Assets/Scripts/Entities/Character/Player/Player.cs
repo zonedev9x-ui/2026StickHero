@@ -8,12 +8,6 @@ public class Player : Character
     public List<ItemWeapon> itemWeapons;
     private Coroutine currentCoroutine;
 
-    protected override void Start()
-    {
-        base.Start();
-        EnablePhysics(false);
-    }
-
     public override void UpdateIdle()
     {
         currentState = CharacterState.Idle;
@@ -138,7 +132,7 @@ public class Player : Character
 
             if (strengthScore.score <= 0)
             {
-                Die();
+                Die(this);
             }
             else
             {
@@ -163,12 +157,12 @@ public class Player : Character
             {
                 if (currentFloor.IsLastEnemyInFloor())
                 {
-                    int randomAnimAttackFar = Random.Range(4, 7);
+                    int randomAnimAttackFar = Random.Range(3, 6);
                     animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttackFar);
                 }
                 else
                 {
-                    int randomAnimAttack = Random.Range(1, 4);
+                    int randomAnimAttack = Random.Range(0, 3);
                     animator.SetFloat(ConstantData.ANIM_BLEND_ATTACK, randomAnimAttack);
                 }
 

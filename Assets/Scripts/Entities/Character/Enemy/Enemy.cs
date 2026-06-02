@@ -14,12 +14,6 @@ public class Enemy : Character
     public EnemyName enemyName = EnemyName.None;    
     public bool isAnimAttackSingle = false;
 
-    protected override void Start()
-    {
-        base.Start();
-        EnablePhysics(false);
-    }
-
     public void Attack(Entity target)
     {
         currentState = CharacterState.Attack;

@@ -43,43 +43,86 @@ public class Tower : MonoBehaviour
 
     public void SortSummitAndFloors()
     {
-        if (summit != null)
+        if (floorCount == 0)
         {
-            summit.gameObject.SetActive(true);
-            summit.transform.localPosition = new Vector3(0f, floorSpacingY * floorCount, 0f);
-        }
-
-        for (int i = 0; i < floorCount; i++)
-        {
-            float heightY = floorSpacingY * (floorCount - 1 - i);
-
-            floors[i].transform.localScale = Vector3.one;
-            Vector3 floorSpawnPos = transform.position + new Vector3(0f, heightY, 0f);
-            floors[i].transform.position = floorSpawnPos;
-        }
-    }
-
-    public void SortSummitAndFloorsDown()
-    {
-        for (int i = 0; i < floors.Count; i++)
-        {
-            if (floors[i].gameObject.activeSelf == true && floors[i].IsEntityCleaned() == true)
+            if (summit != null)
             {
-                floors[i].HideFloor();
+                summit.gameObject.SetActive(true);
+                summit.transform.localPosition = new Vector3(0f, floorSpacingY, 0f);
+            }
 
-                summit.MoveSummitDown(floorSpacingY);
+            float heightY = floorSpacingY * floorCount;
 
-                for (int j = 0; j < i; j++)
-                {
-                    floors[j].MoveFloorDown(floorSpacingY);
-                }
+            floors[floorCount].gameObject.SetActive(true);
+
+            floors[floorCount].transform.localScale = Vector3.one;
+
+            Vector3 floorSpawnPos = transform.position + new Vector3(0f, heightY, 0f);
+
+            floors[floorCount].transform.position = floorSpawnPos;
+        }
+        else
+        {
+            if (summit != null)
+            {
+                summit.gameObject.SetActive(true);
+                summit.transform.localPosition = new Vector3(0f, floorSpacingY * floorCount, 0f);
+            }
+
+            for (int i = 0; i < floorCount; i++)
+            {
+                float heightY = floorSpacingY * (floorCount - 1 - i);
+
+                floors[i].gameObject.SetActive(true);
+
+                floors[i].transform.localScale = Vector3.one;
+
+                Vector3 floorSpawnPos =
+                    transform.position + new Vector3(0f, heightY, 0f);
+
+                floors[i].transform.position = floorSpawnPos;
             }
         }
     }
 
+    public void SortSummitAndFloorsDown(int currentFloorIndex)
+    {
+        //for (int i = 0; i < floors.Count; i++)
+        //{
+        //    if (floors[i].gameObject.activeSelf == true && floors[i].IsEntityCleaned() == true)
+        //    {
+        floors[currentFloorIndex].HideFloor();
+
+        summit.MoveSummitDown(floorSpacingY);
+
+        for (int j = 0; j < currentFloorIndex; j++)
+        {
+            floors[j].MoveFloorDown(floorSpacingY);
+        }
+
+        floorCount--;
+        //    }
+        //}
+    }
+
     public void SortSummitAndFloorsUp()
     {
+        floorCount++;
 
+        if (floorCount < floors.Count)
+        {
+            Debug.Log("Floor Count: " + floorCount);
+            Debug.Log("Floors Count: " + floors.Count);
+
+            floors[floorCount].gameObject.SetActive(true);
+            floors[floorCount].ScaleFloorY();
+
+            for (int i = 0; i < floorCount; i++)
+            {
+                summit.MoveSummitUp(floorSpacingY);
+                floors[i].MoveFloorUp(floorSpacingY);
+            }
+        }
     }
 
     public void BreakWalls()

@@ -30,7 +30,7 @@ public class EntityAnimEvent : MonoBehaviour
         }
     }
 
-    public void OnAttackFinished()
+    public void OnAttackFinished(int direction)
     {
         if (entity.currentTarget != null)
         {
@@ -45,7 +45,7 @@ public class EntityAnimEvent : MonoBehaviour
                         player.UpdateStrengthScore(c.strengthScore);
                     }
 
-                    c.Die();
+                    c.Die(entity);
                 }
             }
         }
