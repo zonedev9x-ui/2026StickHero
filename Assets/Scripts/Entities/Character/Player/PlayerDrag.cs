@@ -3,22 +3,16 @@ using UnityEngine;
 public class PlayerDrag : MonoBehaviour
 {
     public Player player;
+
     private Camera mainCamera;
     private Vector3 offset;
-    private Vector3 oldParentPos;
-    private Transform oldParentTransform;
-
+    public Vector3 oldParentTransform;
     private bool isDragging = false;
     private Entity currentTarget;
 
     void Start()
     {
         mainCamera = Camera.main;
-        if (transform.parent != null)
-        {
-            oldParentPos = transform.parent.position;
-            oldParentTransform = transform.parent;
-        }
     }
 
     void Update()
@@ -41,11 +35,8 @@ public class PlayerDrag : MonoBehaviour
         player.PlayAnim(ConstantData.ANIM_TRIGGER_GRAB);
         isDragging = true;
 
-        oldParentTransform = transform.parent;
-        oldParentPos = oldParentTransform != null ? oldParentTransform.position : transform.position;
-        
-        transform.SetParent(null);
-        
+        oldParentTransform = transform.position;
+
         player.currentFloor = null;
         player.currentTarget = null;
         player.currentTower = LevelController.Instance.SetCurrentTower();
@@ -53,7 +44,7 @@ public class PlayerDrag : MonoBehaviour
         if (player.currentTower != null)
         {
             player.currentTower.ShowAllHighlightNormal();
-        }   
+        }
     }
 
     private void OnMouseDrag()
@@ -91,7 +82,8 @@ public class PlayerDrag : MonoBehaviour
                     }
                     else
                     {
-                        player.currentFloor = floor;
+                        player.currentFloor = null;
+                        currentTarget = null;
                     }
 
                     return;
@@ -121,25 +113,19 @@ public class PlayerDrag : MonoBehaviour
             transform.position = player.currentFloor.SetPlayerPos();
             transform.SetParent(player.currentFloor.transform);
             player.currentFloor.GetNextEntity();
+
+            oldParentTransform = transform.position;
+
+            LevelController.Instance.UpdateTowers();
         }
         else
         {
-            transform.position = oldParentPos;
-            if (oldParentTransform != null && oldParentTransform.gameObject.activeSelf)
-            {
-                transform.SetParent(oldParentTransform);
-            }
-            else if (player.currentTower != null)
-            {
-                transform.SetParent(player.currentTower.transform);
-            }
+            transform.position = oldParentTransform;
         }
 
         if (player.currentTower != null)
         {
             player.currentTower.HideAllHighlight();
-            //player.currentTower.SortSummitAndFloorsDown();
-            LevelController.Instance.UpdateTowers();
         }
 
         if (currentTarget != null)

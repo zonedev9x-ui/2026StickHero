@@ -85,7 +85,7 @@ public class Character : Entity
 
         Vector3 hitDir = (transform.position - entity.transform.position).normalized;
 
-        rb.AddForce(hitDir * 30f, ForceMode.Impulse);
+        rb.AddForce(hitDir * 40f, ForceMode.Impulse);
 
         EnableStrengthScore(false);
 

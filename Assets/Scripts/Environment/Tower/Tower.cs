@@ -87,10 +87,6 @@ public class Tower : MonoBehaviour
 
     public void SortSummitAndFloorsDown(int currentFloorIndex)
     {
-        //for (int i = 0; i < floors.Count; i++)
-        //{
-        //    if (floors[i].gameObject.activeSelf == true && floors[i].IsEntityCleaned() == true)
-        //    {
         floors[currentFloorIndex].HideFloor();
 
         summit.MoveSummitDown(floorSpacingY);
@@ -101,8 +97,6 @@ public class Tower : MonoBehaviour
         }
 
         floorCount--;
-        //    }
-        //}
     }
 
     public void SortSummitAndFloorsUp()
