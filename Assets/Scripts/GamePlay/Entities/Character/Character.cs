@@ -83,13 +83,28 @@ public class Character : Entity
 
         EnableRagdoll(true);
 
-        Vector3 hitDir = (transform.position - entity.transform.position).normalized;
-
-        rb.AddForce(hitDir * 40f, ForceMode.Impulse);
-
         EnableStrengthScore(false);
 
-        if(currentCoroutine != null)
+        Vector3 hitDir = (transform.position - entity.transform.position).normalized;
+
+        if (this is Enemy)
+        {
+            Enemy enemy = this as Enemy;
+
+            if(enemy.enemyType == EnemyType.Boss)
+            {
+                rb.AddForce(hitDir * 200f, ForceMode.Impulse);
+            }
+            else
+            {
+                rb.AddForce(hitDir * 40f, ForceMode.Impulse);
+            }
+        }
+    }
+
+    private void HideCharacter()
+    {
+        if (currentCoroutine != null)
         {
             currentCoroutine = null;
         }
@@ -99,7 +114,7 @@ public class Character : Entity
 
     private IEnumerator IEHideCharacterDelay()
     {
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(6f);
 
         gameObject.SetActive(false);
     }

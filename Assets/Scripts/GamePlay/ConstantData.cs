@@ -5,6 +5,12 @@ public class ConstantData
     public const string TAG_FLOOR = "Floor";
     public const string TAG_DRAGGABLE = "Draggable";
 
+    public const string SCENE_ROOT = "00Root";
+    public const string SCENE_LOBBY = "01LobbyGame";
+    public const string SCENE_GAME = "02GamePlay";
+    public const string SCENE_LOADING = "03Loading";
+
+    // ANIMATION
     public const string ANIM_TRIGGER_GRAB = "isGrab";
     public const string ANIM_TRIGGER_GRAB_RELEASE = "isGrabRelease";
     public const string ANIM_BOOL_RUNNING = "isRunning";

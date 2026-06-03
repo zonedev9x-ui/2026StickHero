@@ -25,8 +25,10 @@ public class LevelController : Singleton<LevelController>
 
     private void Awake()
     {
-        GameData.Load();
-        LoadLevel(0);
+        if(GameData.staticGameData != null)
+        {
+            //LoadLevel();
+        }
     }
 
     #region Init Level
@@ -56,7 +58,6 @@ public class LevelController : Singleton<LevelController>
 
             for (int floorIndex = 0; floorIndex < floorDatas.Count; floorIndex++)
             {
-                //Floor newFloor = Instantiate(floorPrefab, newTower.transform.position, Quaternion.identity, newTower.transform);
                 Floor newFloor = newTower.floors[floorIndex];
 
                 List<SlotData> slotDatas = floorDatas[floorIndex].slotDatas;
@@ -148,10 +149,6 @@ public class LevelController : Singleton<LevelController>
 
     #endregion
 
-    #region Game Play
-
-    #endregion
-
     public Tower SetCurrentTower()
     {
         return towers[currentTowerIndex];
@@ -207,13 +204,6 @@ public class LevelController : Singleton<LevelController>
 
     public void UpdateTowers()
     {
-        //towers[currentTowerIndex].SortSummitAndFloorsDown();
-
-        //if(currentTowerIndex - 1 >= 0)
-        //{
-        //    towers[currentTowerIndex - 1].SortSummitAndFloorsUp();
-        //}
-
         Tower currentTower = towers[currentTowerIndex];
         Tower prevTower = towers[currentTowerIndex - 1];
 
