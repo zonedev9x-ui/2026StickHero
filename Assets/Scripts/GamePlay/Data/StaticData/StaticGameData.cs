@@ -4,7 +4,7 @@ public class StaticGameData
 {
     public StaticLevelData staticLevelData;
 
-    public StaticGameData()
+    public void Load()
     {
         if (staticLevelData == null) staticLevelData = new StaticLevelData();
     }

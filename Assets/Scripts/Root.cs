@@ -25,7 +25,8 @@ public class Root : MonoBehaviour
 
     private void Start()
     {
-        GameData.Load();
+        GameData.staticGameData.Load();
+        GameData.userData.Load();
     }
 
     private void Update()

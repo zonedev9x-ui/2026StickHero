@@ -10,6 +10,8 @@ public class ConstantData
     public const string SCENE_GAME = "02GamePlay";
     public const string SCENE_LOADING = "03Loading";
 
+    public const string SORTING_LAYER_OVERLAY = "PopupOverlay";
+
     // ANIMATION
     public const string ANIM_TRIGGER_GRAB = "isGrab";
     public const string ANIM_TRIGGER_GRAB_RELEASE = "isGrabRelease";

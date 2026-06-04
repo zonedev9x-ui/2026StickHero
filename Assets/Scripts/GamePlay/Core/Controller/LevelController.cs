@@ -149,6 +149,17 @@ public class LevelController : Singleton<LevelController>
 
     #endregion
 
+    #region Logic Game
+
+    private void OnAllEntityCleaned(object param)
+    {
+
+    }
+
+    #endregion
+
+    #region Logic Tower
+
     public Tower SetCurrentTower()
     {
         return towers[currentTowerIndex];
@@ -159,11 +170,6 @@ public class LevelController : Singleton<LevelController>
         if (currentTowerIndex > towers.Count - 1) return;
 
         currentTowerIndex++;
-    }
-
-    public Enemy SetBossInLevel()
-    {
-        return boss;
     }
 
     public bool IsAllEntityInCurrentTowerCleaned()
@@ -192,11 +198,6 @@ public class LevelController : Singleton<LevelController>
         return false;
     }
 
-    public void MoveCameraToNextTower()
-    {
-        cameraSmooth.MoveNextDistanceTargets();
-    }
-
     public bool IsLastTower()
     {
         return currentTowerIndex >= towers.Count - 1;
@@ -216,5 +217,29 @@ public class LevelController : Singleton<LevelController>
                 prevTower.SortSummitAndFloorsUp();
             }
         }
+    }
+
+    #endregion
+
+    #region UI and Event
+
+    private void ShowPopupEndGame(bool isWin)
+    {
+        if (isWin)
+        {
+            LWin ui = UIManager.Instance.LoadUI(UIKey.WIN) as LWin;
+        }
+    }
+
+    #endregion
+
+    public void MoveCameraToNextTower()
+    {
+        cameraSmooth.MoveNextDistanceTargets();
+    }
+
+    public Enemy SetBossInLevel()
+    {
+        return boss;
     }
 }

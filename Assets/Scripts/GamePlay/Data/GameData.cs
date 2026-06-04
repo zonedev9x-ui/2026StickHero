@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class GameData
 {
-    public static StaticGameData staticGameData;
+    public static StaticGameData staticGameData = new StaticGameData();
+    public static UserData userData = new UserData();
 
-    public static void Load()
+    public static void Reset()
     {
-        if (staticGameData == null) staticGameData = new StaticGameData();
+        staticGameData = new StaticGameData();
+        userData = new UserData();
     }
 }
