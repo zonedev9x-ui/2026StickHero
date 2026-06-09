@@ -5,7 +5,7 @@ public class Entity : MonoBehaviour
     public StrengthScore strengthScore;
     public Entity currentTarget;
 
-    public bool isActive = true;
+    public bool isInteraction = true;
 
     public virtual void Init()
     {
@@ -19,11 +19,11 @@ public class Entity : MonoBehaviour
 
     public void SetActive(bool isOn) 
     {
-        isActive = isOn;
+        isInteraction = isOn;
     }
 
     public bool IsActive()
     {
-        return isActive;
+        return isInteraction;
     }
 }

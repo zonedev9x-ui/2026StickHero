@@ -182,8 +182,11 @@ public class LevelController : MonoBehaviour
             listTargetPosX.Add(middeX);
         }
 
-        float bossMiddeX = (towers[towers.Count - 1].centerPoint.position.x + boss.transform.position.x) / 2f;
-        listTargetPosX.Add(bossMiddeX);
+        if (boss != null)
+        {
+            float bossMiddleX = (towers[towers.Count - 1].centerPoint.position.x + boss.transform.position.x) / 2f;
+            listTargetPosX.Add(bossMiddleX);
+        }
 
         cameraSmooth.InitCamera(listTargetPosX);
 
@@ -197,7 +200,7 @@ public class LevelController : MonoBehaviour
 
     #region Logic Game
 
-    public void CheckTowerProgress(Player player)
+    public void CheckTowerProgress()
     {
         if (IsAllEntityInCurrentTowerCleaned() == true)
         {
@@ -217,19 +220,32 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    public void CheckEndGame(Player player)
+    public void EndGameWin()
     {
         if (IsAllEntityInactive(entities) == true)
         {
             player.UpdateWin();
+
+            this.StartDelayAction(2f, () =>
+            {
+                SetEndGame(true);
+            });
         }
+    }
+
+    public void EndGameLose()
+    {
+        this.StartDelayAction(2f, () =>
+        {
+            SetEndGame(false);
+        });
     }
 
     public bool IsAllEntityInactive(List<Entity> entityList)
     {
         for (int i = 0; i < entityList.Count; i++)
         {
-            if (entityList[i].isActive == true)
+            if (entityList[i].IsActive() == true)
             {
                 return false;
             }
@@ -297,13 +313,18 @@ public class LevelController : MonoBehaviour
     {
         if (isWin)
         {
-            GameData.userData.profile.EndStage(isWin);
-            LWin ui = UIManager.Instance.LoadUI(UIKey.WIN) as LWin;
+            this.StartDelayAction(2f, () =>
+            {
+                GameData.userData.profile.EndStage(isWin);
+                LWin ui = UIManager.Instance.LoadUI(UIKey.WIN) as LWin;
+            });
         }
         else
         {
-            GameData.userData.profile.EndStage(isWin);
-            //LLose ui = UIManager.Instance.LoadUI(UIKey.LOSE) as LLose;
+            this.StartDelayAction(3f, () =>
+            {
+                LLose ui = UIManager.Instance.LoadUI(UIKey.LOSE) as LLose;
+            });
         }
     }
 

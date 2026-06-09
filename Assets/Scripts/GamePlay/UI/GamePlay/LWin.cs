@@ -33,6 +33,9 @@ public class LWin : BaseUI
 
     private void ClickBtNext()
     {
-        isDoingNextLevel = true;
+        UIManager.Instance.FadeToLoadScene(ConstantData.SCENE_GAME, () =>
+        {
+            UIManager.Instance.ClearAllUI();
+        });
     }
 }

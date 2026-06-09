@@ -16,8 +16,6 @@ public class Character : Entity
 
     [HideInInspector] public Floor currentFloor;
 
-    //public Entity currentTarget;
-
     protected Coroutine currentCoroutine;
     protected string currentAnim;
 
@@ -79,7 +77,7 @@ public class Character : Entity
     {
         currentState = CharacterState.Dead;
 
-        isActive = false;
+        isInteraction = false;
 
         EnableRagdoll(true);
 
@@ -91,7 +89,7 @@ public class Character : Entity
         {
             Enemy enemy = this as Enemy;
 
-            if(enemy.enemyType == EnemyType.Boss)
+            if (enemy.enemyType == EnemyType.Boss)
             {
                 rb.AddForce(hitDir * 200f, ForceMode.Impulse);
             }
@@ -99,9 +97,16 @@ public class Character : Entity
             {
                 rb.AddForce(hitDir * 35f, ForceMode.Impulse);
             }
+
+            HideCharacter();
+
+            LevelController.Instance.EndGameWin();
         }
 
-        HideCharacter();
+        if (this is Player)
+        {
+            LevelController.Instance.EndGameLose();
+        }
     }
 
     private void HideCharacter()

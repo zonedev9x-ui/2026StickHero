@@ -63,7 +63,7 @@ public class CameraSmooth : MonoBehaviour
         IsMoving = true;
         Sequence seq = DOTween.Sequence();
 
-        seq.AppendInterval(0.6f);
+        seq.AppendInterval(2f);
 
         seq.Append(
             transform.DOMoveX(listTargetPosX[listTargetPosX.Count - 1], moveSpeed)

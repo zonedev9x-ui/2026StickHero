@@ -11,7 +11,7 @@ public class Player : Character
     {
         currentState = CharacterState.Idle;
 
-        LevelController.Instance.CheckTowerProgress(this);
+        LevelController.Instance.CheckTowerProgress();
     }
 
     public void UpdateChangeSize()
