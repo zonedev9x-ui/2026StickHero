@@ -97,9 +97,11 @@ public class Character : Entity
             }
             else
             {
-                rb.AddForce(hitDir * 40f, ForceMode.Impulse);
+                rb.AddForce(hitDir * 35f, ForceMode.Impulse);
             }
         }
+
+        HideCharacter();
     }
 
     private void HideCharacter()

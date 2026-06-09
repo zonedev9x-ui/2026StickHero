@@ -11,44 +11,24 @@ public class Player : Character
     {
         currentState = CharacterState.Idle;
 
-        bool isAllEntityCurrentTowerCleaned = LevelController.Instance.IsAllEntityInCurrentTowerCleaned();
-
-        if (isAllEntityCurrentTowerCleaned == true)
-        {
-            if (LevelController.Instance.IsLastTower() && LevelController.Instance.SetBossInLevel() != null)
-            {
-                LevelController.Instance.cameraSmooth.MoveLastTargetAndScale();
-                if (currentCoroutine != null) currentCoroutine = null;
-
-                currentCoroutine = StartCoroutine(IEUpdateChangeSize());
-            }
-
-            LevelController.Instance.MoveCameraToNextTower();
-            LevelController.Instance.NextTower();
-        }
+        LevelController.Instance.CheckTowerProgress(this);
     }
 
-    private IEnumerator IEUpdateChangeSize()
+    public void UpdateChangeSize()
     {
-        yield return new WaitForSeconds(0.5f);
-
         currentState = CharacterState.ChangeSize;
-        PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
+
+        this.StartDelayAction(0.5f, () =>
+        {
+            PlayAnim(ConstantData.ANIM_TRIGGER_CHANGE_SIZE);
+        });
     }
 
-    public void EnablePhysicsAndColliders(bool isEnabled)
+    public void UpdateWin()
     {
-        Collider col = GetComponentInChildren<Collider>();
-        Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
+        currentState = CharacterState.Win;
 
-        foreach (Rigidbody rb in bodies)
-        {
-            rb.isKinematic = !isEnabled;
-        }
-        if (col != null)
-        {
-            col.enabled = !isEnabled;
-        }
+        PlayAnim(ConstantData.ANIM_TRIGGER_WIN);
     }
 
     public void SetCombatTarget(Entity target, Floor floor)
@@ -64,31 +44,8 @@ public class Player : Character
     {
         currentState = CharacterState.Attack;
 
-        if (currentTarget != null)
-        {
-            currentTarget = null;
-        }
-
         currentTarget = LevelController.Instance.SetBossInLevel();
-
         EntityInteraction();
-    }
-
-    public IEnumerator IEAttackBoss()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        if (currentTarget != null)
-        {
-            currentTarget = null;
-        }
-
-        currentTarget = LevelController.Instance.SetBossInLevel();
-
-        if (currentTarget != null)
-        {
-            SetCombatTarget(currentTarget, null);
-        }
     }
 
     private IEnumerator IEntityInteraction()

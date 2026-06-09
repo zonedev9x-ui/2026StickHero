@@ -7,6 +7,11 @@ public class Entity : MonoBehaviour
 
     public bool isActive = true;
 
+    public virtual void Init()
+    {
+
+    }
+
     protected virtual void EnableStrengthScore(bool isOn)
     {
         strengthScore.gameObject.SetActive(isOn);

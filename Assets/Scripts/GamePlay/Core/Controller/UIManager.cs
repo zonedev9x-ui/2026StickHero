@@ -8,6 +8,7 @@ public class UIManager : Singleton<UIManager>
 
     public RectTransform groupScreenOverlayUI;
 
+    private bool isFading;
     private Dictionary<string, BaseUI> cachedUIs = new Dictionary<string, BaseUI>();
     private Stack<BaseUI> activeUIs = new Stack<BaseUI>();
 
@@ -149,4 +150,25 @@ public class UIManager : Singleton<UIManager>
     //        }
     //    }
     //}
+
+    #region Fade
+
+
+
+    public void ClearAllUI()
+    {
+        activeUIs.Clear();
+
+        foreach (var kv in cachedUIs)
+        {
+            if (kv.Value != null)
+            {
+                Destroy(kv.Value.gameObject);
+            }
+        }
+
+        cachedUIs.Clear();
+    }
+
+    #endregion
 }

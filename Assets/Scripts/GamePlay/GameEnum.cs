@@ -6,7 +6,8 @@ public enum CharacterState
     Moving,
     Attack,
     ChangeSize,
-    Dead
+    Dead,
+    Win
 }
 
 public enum EnemyType
