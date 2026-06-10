@@ -24,6 +24,6 @@ public class LobbyController : MonoBehaviour
 
     private void ClickBtPlay()
     {
-        SceneManager.LoadScene(ConstantData.SCENE_GAME);
+        UIManager.Instance.FadeToLoadScene(ConstantData.SCENE_GAME);
     }
 }

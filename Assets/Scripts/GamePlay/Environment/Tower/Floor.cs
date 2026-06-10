@@ -85,6 +85,11 @@ public class Floor : MonoBehaviour
         }
     }
 
+    public float GetBonusObjectPosX()
+    {
+        return spawnPos[2].position.x;
+    }
+
     public Entity GetCurrentEntity()
     {
         if (currentEntityIndex > entities.Count - 1) return null;
@@ -148,7 +153,7 @@ public class Floor : MonoBehaviour
     {
         for(int i = 0; i < entities.Count; i++)
         {
-            if (entities[i].IsActive() == true)
+            if (entities[i].IsInteraction() == true)
             {
                 return false;
             }

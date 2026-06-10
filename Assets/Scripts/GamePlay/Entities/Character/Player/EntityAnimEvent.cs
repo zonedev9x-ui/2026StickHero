@@ -116,7 +116,7 @@ public class EntityAnimEvent : MonoBehaviour
 
     public void HideObject()
     {   
-        entity.SetActive(false);
+        entity.SetInteraction(false);
         entity.gameObject.SetActive(false);
     }
 }

@@ -15,6 +15,7 @@ public class LevelController : MonoBehaviour
     public List<Trap> trapPrefabs;
     public List<Enemy> enemyPrefabs;
     public List<Enemy> bossPrefabs;
+    public List<BonusObject> bonusPrefabs;
 
     public Transform tranStart;
     public float towerSpacingX = 10f;
@@ -148,6 +149,18 @@ public class LevelController : MonoBehaviour
                 }
             }
         }
+        else if (slotData.bonusObjectType != BonusObjectType.None)
+        {
+            for(int i = 0; i < bonusPrefabs.Count; i++)
+            {
+                if (bonusPrefabs[i].type == slotData.bonusObjectType)
+                {
+                    BonusObject newBO = Instantiate(bonusPrefabs[i], spawnPoint.position, Quaternion.identity, spawnPoint.transform);
+                    entitiesInFloor.Add(newBO);
+                    entities.Add(newBO);
+                }
+            }
+        }
 
         entityCount++;
     }
@@ -224,9 +237,7 @@ public class LevelController : MonoBehaviour
     {
         if (IsAllEntityInactive(entities) == true)
         {
-            player.UpdateWin();
-
-            this.StartDelayAction(2f, () =>
+            this.StartDelayAction(1f, () =>
             {
                 SetEndGame(true);
             });
@@ -235,7 +246,7 @@ public class LevelController : MonoBehaviour
 
     public void EndGameLose()
     {
-        this.StartDelayAction(2f, () =>
+        this.StartDelayAction(1f, () =>
         {
             SetEndGame(false);
         });
@@ -245,7 +256,7 @@ public class LevelController : MonoBehaviour
     {
         for (int i = 0; i < entityList.Count; i++)
         {
-            if (entityList[i].IsActive() == true)
+            if (entityList[i].IsInteraction() == true)
             {
                 return false;
             }

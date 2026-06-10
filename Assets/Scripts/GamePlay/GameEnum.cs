@@ -3,10 +3,11 @@ using UnityEngine;
 public enum CharacterState
 {   
     Idle,
-    Moving,
+    Move,
     Attack,
     ChangeSize,
     Dead,
+    OpenChest,
     Win
 }
 
@@ -26,7 +27,7 @@ public enum EnemyName
     Enemy_Dagger_man,
     Enemy_Axe_man,
     Enemy_4Hands,
-    Enemy_Alphabet,
+    Enemy_Alphabet_F,
     Enemy_Baby,
     Enemy_BananaCat,
     Enemy_BanBanGreen,
@@ -94,6 +95,13 @@ public enum ItemSuportType
     Heart,
     Shield,
     Power
+}
+
+public enum BonusObjectType
+{
+    None,
+    HotGirl,
+    Treasure
 }
 
 public enum StrengthScoreType

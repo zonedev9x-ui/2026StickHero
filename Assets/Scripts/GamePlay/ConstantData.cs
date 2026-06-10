@@ -47,4 +47,8 @@ public class ConstantData
 
     public const string ANIM_BLEND_BOSS_COMBO = "bossComboIndex";
     public const float ANIM_BOSS_COMBO_EMPTY = 0;
+
+    public const string ANIM_HOTGIRL_DANCE = "isDance";
+    public const string ANIM_BLEND_HOTGIRL_DANCE = "danceIndex";
+    public const float ANIM_BLEND_HOTGIRL_WIN_6 = 6;
 }

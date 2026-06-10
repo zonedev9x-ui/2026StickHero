@@ -9,5 +9,6 @@ public class SlotData
     public EnemyName enemyName;
     public ItemSuportType itemSuportType;
     public WeaponType weaponType;
-    public TrapType trapType;   
+    public TrapType trapType;
+    public BonusObjectType bonusObjectType;
 }

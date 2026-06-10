@@ -3,9 +3,10 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public StrengthScore strengthScore;
-    public Entity currentTarget;
 
-    public bool isInteraction = true;
+    [HideInInspector] public Entity currentTarget;
+
+    private bool isInteraction = true;
 
     public virtual void Init()
     {
@@ -14,15 +15,16 @@ public class Entity : MonoBehaviour
 
     protected virtual void EnableStrengthScore(bool isOn)
     {
+        if (strengthScore == null) return;
         strengthScore.gameObject.SetActive(isOn);
     }
 
-    public void SetActive(bool isOn) 
+    public void SetInteraction(bool isOn) 
     {
         isInteraction = isOn;
     }
 
-    public bool IsActive()
+    public bool IsInteraction()
     {
         return isInteraction;
     }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,38 @@ public class Player : Character
         LevelController.Instance.CheckTowerProgress();
     }
 
+    public void UpdateMove()
+    {
+        currentState = CharacterState.Move;
+
+        if (currentFloor != null)
+        {
+            float posX = currentFloor.GetBonusObjectPosX();
+
+            animator.SetBool(ConstantData.ANIM_BOOL_RUNNING, true);
+
+            this.transform.DOMoveX(posX, 2f).OnComplete(() =>
+            {
+                animator.SetBool(ConstantData.ANIM_BOOL_RUNNING, false);
+
+                BonusObject currentBonus = (BonusObject)currentTarget;
+                
+                currentBonus.SetInteraction(false);
+
+                if (currentBonus.type == BonusObjectType.Treasure)
+                {
+                    UpdateOpenChest();
+                    return;
+                }
+
+                currentBonus.TakeAction();
+
+                UpdateWin();
+                return;
+            });
+        }
+    }
+
     public void UpdateChangeSize()
     {
         currentState = CharacterState.ChangeSize;
@@ -24,11 +57,33 @@ public class Player : Character
         });
     }
 
+    public void UpdateOpenChest()
+    {
+        currentState = CharacterState.OpenChest;
+
+        PlayAnim(ConstantData.ANIM_TRIGGER_OPEN_CHEST);
+
+        BonusObject currentBonus = (BonusObject)currentTarget;
+
+        if(currentBonus != null)
+        {
+            currentBonus.TakeAction();
+        }
+
+        this.StartDelayAction(2f, () =>
+        {
+            UpdateWin();
+            return;
+        });
+    }
+
     public void UpdateWin()
     {
         currentState = CharacterState.Win;
 
         PlayAnim(ConstantData.ANIM_TRIGGER_WIN);
+
+        LevelController.Instance.EndGameWin();
     }
 
     public void SetCombatTarget(Entity target, Floor floor)
@@ -75,7 +130,7 @@ public class Player : Character
             Weapon currentWeapon = (Weapon)currentTarget;
             UpdateStrengthScore(currentWeapon.strengthScore);
             EquipWeapon(currentWeapon);
-            currentWeapon.SetActive(false);
+            currentWeapon.SetInteraction(false);
         }
         else if (currentTarget is Trap)
         {
@@ -100,8 +155,13 @@ public class Player : Character
             PlayAnim(ConstantData.ANIM_TRIGGER_GET_ITEM);
 
             currentTarget.gameObject.SetActive(false);
-            currentTarget.SetActive(false);
+            currentTarget.SetInteraction(false);
             UpdateStrengthScore(currentTarget.strengthScore);
+        }
+        else if (currentTarget is BonusObject)
+        {
+            UpdateMove();
+            return;
         }
     }
 
