@@ -10,29 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d84b8b620928e3d4f9615586ccc8382f, type: 3}
-  m_Name: LevelData_1 10
+  m_Name: LevelData_10
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelIndex: 1
+  levelIndex: 10
   bossEnemyData:
-    ScoreType: 0
-    strengthScore: 0
-    enemyName: 0
+    ScoreType: 1
+    strengthScore: 72
+    enemyName: 6
   playerData:
-    strengthScore: 10
+    strengthScore: 16
   towerDatas:
   - floorDatas:
     - slotDatas:
       - strengthType: 1
         strengthScore: 10
-        enemyName: 1
+        enemyName: 3
         itemSuportType: 0
         weaponType: 0
         trapType: 0
         bonusObjectType: 0
-      - strengthType: 0
-        strengthScore: 0
+    - slotDatas:
+      - strengthType: 3
+        strengthScore: 3
         enemyName: 0
+        itemSuportType: 2
+        weaponType: 0
+        trapType: 0
+        bonusObjectType: 0
+    - slotDatas:
+      - strengthType: 1
+        strengthScore: 15
+        enemyName: 2
         itemSuportType: 0
         weaponType: 0
         trapType: 0
-        bonusObjectType: 1
+        bonusObjectType: 0

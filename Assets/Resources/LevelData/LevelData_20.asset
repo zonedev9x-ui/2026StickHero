@@ -10,44 +10,59 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d84b8b620928e3d4f9615586ccc8382f, type: 3}
-  m_Name: LevelData_4
+  m_Name: LevelData_20
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelIndex: 4
+  levelIndex: 20
   bossEnemyData:
-    ScoreType: 0
-    strengthScore: 0
-    enemyName: 0
+    ScoreType: 1
+    strengthScore: 101
+    enemyName: 21
   playerData:
-    strengthScore: 4
+    strengthScore: 9
   towerDatas:
   - floorDatas:
     - slotDatas:
-      - strengthType: 1
-        strengthScore: 15
-        enemyName: 6
+      - strengthType: 2
+        strengthScore: 21
+        enemyName: 0
         itemSuportType: 0
+        weaponType: 0
+        trapType: 2
+        bonusObjectType: 0
+      - strengthType: 1
+        strengthScore: 31
+        enemyName: 0
+        itemSuportType: 2
         weaponType: 0
         trapType: 0
         bonusObjectType: 0
     - slotDatas:
       - strengthType: 1
-        strengthScore: 4
-        enemyName: 2
-        itemSuportType: 0
-        weaponType: 0
-        trapType: 0
-        bonusObjectType: 0
-    - slotDatas:
-      - strengthType: 1
-        strengthScore: 1
+        strengthScore: 8
         enemyName: 1
         itemSuportType: 0
         weaponType: 0
         trapType: 0
         bonusObjectType: 0
       - strengthType: 1
-        strengthScore: 8
+        strengthScore: 11
+        enemyName: 4
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+        bonusObjectType: 0
+    - slotDatas:
+      - strengthType: 1
+        strengthScore: 31
         enemyName: 2
+        itemSuportType: 0
+        weaponType: 0
+        trapType: 0
+        bonusObjectType: 0
+    - slotDatas:
+      - strengthType: 1
+        strengthScore: 61
+        enemyName: 20
         itemSuportType: 0
         weaponType: 0
         trapType: 0
